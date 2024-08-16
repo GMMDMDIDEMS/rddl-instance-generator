@@ -1,15 +1,21 @@
 [tool.poetry]
-name = "rddl_instance_generator"
+name = "rddl-instance-generator"
 version = "0.1.0"
 description = ""
 authors = ["GMMDMDIDEMS"]
 readme = "README.md"
 
+[tool.poetry.scripts]
+rddl-instance-generator = "rddl_instance_generator.main:app"
+
 [tool.poetry.dependencies]
 python = "^3.10"
 pyrddlgym = "^2.0"
-ipykernel = "^6.29.5"
 numpy = "1.26.4"
+pyyaml = "^6.0.2"
+typer = { extras = ["all"], version = "^0.12.3" }
+pydantic = "^2.8.2"
+jinja2 = "^3.1.4"
 
 
 [tool.poetry.group.dev.dependencies]
