@@ -1,0 +1,53 @@
+name: "wildfire"
+domain_alias: "wildfire_mdp"
+
+# Domain types
+types:
+  - name: x_pos
+    kind: object
+    alias: x
+  - name: y_pos
+    kind: object
+    alias: !!str y # enforce str so that it is not mistakenly interpreted as a bool
+
+# Non-fluent variables
+non_fluents:
+  - name: COST_CUTOUT
+    type_value: float
+    default: -5.0
+    sampling_range:
+      min: -5.0
+      max: -5.0
+  - name: COST_PUTOUT
+    type_value: float
+    default: -10.0
+    sampling_range:
+      min: -10.0
+      max: -10.0
+  - name: PENALTY_TARGET_BURN
+    type_value: float
+    default: -100.0
+    sampling_range:
+      min: -100.0
+      max: -100.0
+  - name: PENALTY_NONTARGET_BURN
+    type_value: float
+    default: -5.0
+    sampling_range:
+      min: -5.0
+      max: -5.0
+  - name: NEIGHBOR
+    type_value: bool
+    default: false
+  - name: TARGET
+    type_value: bool
+    default: false
+
+# State-fluent variables
+state_fluents:
+  - name: burning
+    type_value: bool
+    default: false
+  - name: out-of-fuel
+    type_value: bool
+    default: false
