@@ -1,0 +1,24 @@
+non-fluents nf_wildfire_mdp__1_2 {
+    domain = wildfire_mdp;
+    objects {
+        x_pos : {x1};
+        y_pos : {y1,y2};
+    };
+    non-fluents {
+        NEIGHBOR(x1,y1,x1,y1);
+        NEIGHBOR(x1,y2,x1,y1);
+        TARGET(x1,y2);
+    };
+}
+
+instance inst_wildfire_mdp__1_2 {
+    domain = wildfire_mdp;
+    non-fluents = nf_wildfire_mdp__1_2;
+    init-state {
+        burning(x1,y2);
+        out-of-fuel(x1,y2);
+    };
+    max-nondef-actions = 1;
+    horizon = 40;
+    discount = 1.0;
+}
