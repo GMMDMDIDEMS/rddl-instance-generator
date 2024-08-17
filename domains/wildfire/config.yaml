@@ -39,15 +39,27 @@ non_fluents:
   - name: NEIGHBOR
     type_value: bool
     default: false
+    sampling_range:
+      min: 0.3
+      max: 0.7
   - name: TARGET
     type_value: bool
     default: false
+    sampling_range:
+      min: 0.1
+      max: 0.25
 
 # State-fluent variables
 state_fluents:
   - name: burning
     type_value: bool
     default: false
+    sampling_range:
+      min: 0.1
+      max: 0.2
   - name: out-of-fuel
     type_value: bool
     default: false
+    sampling_range:
+      min: 0.1
+      max: 0.15
