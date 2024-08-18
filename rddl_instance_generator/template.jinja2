@@ -1,0 +1,30 @@
+non-fluents nf_{{ domain_alias }}__{{ file_id }} {
+    domain = {{ domain_alias }};
+    objects {
+        {%- for obj in types %}
+        {{ obj.name }} : { {%- for index in range(object_length[obj.name]) %}{{ obj.alias }}{{ index + 1 }}{%- if not loop.last %}, {%- endif -%} {%- endfor -%} };
+        {%- endfor %}
+    };
+    {%- if non_fluents %}
+    non-fluents { 
+        {%- for nf in non_fluents %}
+        {{ nf }};
+        {%- endfor %}
+    };
+    {%- endif %}
+}
+
+instance inst_{{ domain_alias }}__{{ file_id }} {
+    domain = {{ domain_alias }};
+    non-fluents = nf_{{ domain_alias }}__{{ file_id }};
+    {% if init_state -%}
+    init-state {
+        {%- for sf in init_state %}
+        {{ sf }};
+        {%- endfor %}
+    };
+    {%- endif %}
+    max-nondef-actions = 1;
+    horizon = 40;
+    discount = 1.0;
+}
