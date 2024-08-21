@@ -1,0 +1,22 @@
+{
+    "version": "0.0.1",
+    "configurations": [
+        {
+            "name": "Python: Debug",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/rddl_instance_generator/main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--domain-name",
+                "wildfire",
+                "--num-instances",
+                "1",
+                "--size",
+                "500",
+                "--seed",
+                "42"
+            ]
+        }
+    ]
+}
