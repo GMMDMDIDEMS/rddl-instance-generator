@@ -86,7 +86,7 @@ def main(
     num_instances: Annotated[
         int,
         typer.Option(
-            "--num-instanes",
+            "--num-instances",
             "-n",
             callback=num_instances_callback,
             help="Number of instances to generate",
@@ -124,6 +124,7 @@ def main(
         rddl = RDDL(domain=domain, instance=instance, seed=instance_seed)
         rddl.write_instance()
 
+        del rddl
 
 if __name__ == "__main__":
     app()
