@@ -148,3 +148,5 @@ class RDDL:
 
         with open(filepath, "w", encoding="utf-8") as file:
             file.write(instance_file)
+
+        del nfs, sfs

@@ -1,7 +1,7 @@
 import random
 from itertools import combinations_with_replacement, cycle, islice, permutations
 from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple, TypedDict
+from typing import Dict, Generator, List, Optional, Set, Tuple, TypedDict
 
 from jinja2 import Environment, FileSystemLoader
 from pydantic import (
@@ -11,12 +11,12 @@ from pydantic import (
     InstanceOf,
     computed_field,
 )
-from rich.progress import track
 
 from rddl_instance_generator.domain import Domain, ObjectType
+from memory_profiler import profile
 
 
-class InstanceTemplate(TypedDict):
+class InstanceTemplateData(TypedDict):
     domain_name: str
     domain_alias: str
     file_id: str
@@ -68,10 +68,7 @@ class InstanceGenerator(BaseModel):
         seeds = [random.randint(1, 10_000) for _ in range(self.num_instances)]
         return seeds
 
-    @computed_field
-    @property
-    def generate_templates(self) -> List[Instance]:
-        instances: List[Instance] = []
+    def generate_template(self, object_combination: Tuple[int, ...]) -> Instance:
         templates_path = Path(
             "domains", str(self.domain.name), "data", "templates", f"size_{self.size}"
         )
@@ -82,46 +79,44 @@ class InstanceGenerator(BaseModel):
         env = Environment(loader=FileSystemLoader("rddl_instance_generator"))
         template = env.get_template("template.jinja2")
 
-        for _, combination in track(
-            enumerate(self.combinations),
-            description="[yellow]Generating templates",
-            total=len(self.combinations),
-        ):
-            file_id = "_".join(map(str, combination))
-            filename = f"instance_{file_id}.rddl"
-            filepath = templates_path / filename
+        file_id = "_".join(map(str, object_combination))
+        filename = f"instance_{file_id}.rddl"
+        filepath = templates_path / filename
 
-            object_length_mapping = self.get_object_length_mapping(combination)
+        object_length_mapping = self.get_object_length_mapping(object_combination)
 
-            instance = Instance(
-                identifier=file_id,
-                size=self.size,
-                object_lengths=object_length_mapping,
-            )
+        instance = Instance(
+            identifier=file_id,
+            size=self.size,
+            object_lengths=object_length_mapping,
+        )
 
-            context: InstanceTemplate = {
-                "domain_name": self.domain.name.lower(),
-                "domain_alias": self.domain.domain_alias,
-                "file_id": file_id,
-                "types": self.domain.types,
-                "object_length": object_length_mapping,
-            }
+        context: InstanceTemplateData = {
+            "domain_name": self.domain.name.lower(),
+            "domain_alias": self.domain.domain_alias,
+            "file_id": file_id,
+            "types": self.domain.types,
+            "object_length": object_length_mapping,
+        }
 
-            instance_template = template.render(context)
+        instance_template = template.render(context)
 
-            with open(filepath, "w", encoding="utf-8") as file:
-                file.write(instance_template)
+        with open(filepath, "w", encoding="utf-8") as file:
+            file.write(instance_template)
 
-            instance.template_path = filepath
-            instances.append(instance)
+        instance.template_path = filepath
 
-        # TODO Bad idea: RAM usage for high number of templates
-        return instances
+        return instance
 
     def generate_instances(
         self,
-    ) -> List[Tuple["Instance", int]]:
-        instances = self.generate_templates
-        instance_distribution = list(islice(cycle(instances), self.num_instances))
+    ) -> Generator[Tuple[Instance, int], None, None]:
+        instance_distribution = list(
+            islice(cycle(self.combinations), self.num_instances)
+        )
 
-        return list(zip(instance_distribution, self.random_seeds))
+        for index, combination in enumerate(instance_distribution):
+            instance = self.generate_template(combination)
+            instance_seed = self.random_seeds[index]
+
+            yield (instance, instance_seed)

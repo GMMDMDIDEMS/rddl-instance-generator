@@ -116,15 +116,16 @@ def main(
         domain=domain, num_instances=num_instances, size=size, seed=seed
     )
 
-    instances = instance_generator.generate_instances()
-
     for instance, instance_seed in track(
-        instances, description="[red]Generating instances"
+        instance_generator.generate_instances(),
+        description="[red]Generating instances",
+        total=num_instances,
     ):
         rddl = RDDL(domain=domain, instance=instance, seed=instance_seed)
         rddl.write_instance()
 
         del rddl
+
 
 if __name__ == "__main__":
     app()
