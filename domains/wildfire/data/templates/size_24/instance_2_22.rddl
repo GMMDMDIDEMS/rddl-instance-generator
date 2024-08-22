@@ -1,0 +1,16 @@
+non-fluents nf_wildfire_mdp__2_22 {
+    domain = wildfire_mdp;
+    objects {
+        x_pos : {x1,x2};
+        y_pos : {y1,y2,y3,y4,y5,y6,y7,y8,y9,y10,y11,y12,y13,y14,y15,y16,y17,y18,y19,y20,y21,y22};
+    };
+}
+
+instance inst_wildfire_mdp__2_22 {
+    domain = wildfire_mdp;
+    non-fluents = nf_wildfire_mdp__2_22;
+    
+    max-nondef-actions = 1;
+    horizon = 40;
+    discount = 1.0;
+}
