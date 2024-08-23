@@ -3,29 +3,31 @@ name = "rddl-instance-generator"
 version = "0.1.0"
 description = ""
 authors = ["GMMDMDIDEMS"]
-readme = "README.md"
+readme = "README.rst"
 
 [tool.poetry.scripts]
 rddl-instance-generator = "rddl_instance_generator.main:app"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.10,<3.13"
 pyrddlgym = "^2.0"
 numpy = "1.26.4"
 pyyaml = "^6.0.2"
 typer = { extras = ["all"], version = "^0.12.3" }
 pydantic = "^2.8.2"
 jinja2 = "^3.1.4"
+python-constraint2 = "^2.0.0b5"
 
 [tool.pytest.ini_options]
 minversion = "8.0"
-addopts = "-ra -v"
+addopts = "--cov --cov-config=.coveragerc --cov-report html --cov-report xml --cov-report term"
 testpaths = ["tests"]
 
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.5"
 pytest = "^8.3.2"
+pytest-cov = "^5.0.0"
 
 
 [tool.poetry.group.test.dependencies]
