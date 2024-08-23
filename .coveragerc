@@ -1,0 +1,25 @@
+# type: ignore [pylance]
+[run]
+source = rddl_instance_generator
+
+# measure branch coverage in addition to statement coverage
+branch = True
+
+# files to leave out of measurement or reporting
+omit =
+    */tests/*
+    */.venv/*
+
+[report]
+# When running a summary report, show missing lines.
+show_missing = True
+fail_under = 80
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
+
+[html]
+directory = tests/htmlcov
+
+[xml]
+output = tests/coverage.xml
