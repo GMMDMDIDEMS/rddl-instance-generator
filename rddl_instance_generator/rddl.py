@@ -1,25 +1,16 @@
 from dataclasses import dataclass
 from pathlib import Path
 import random
-from typing import Dict, List, Tuple, TypedDict, Union
+from typing import List, Tuple, Union
 
 from jinja2 import Environment, FileSystemLoader
 from pyRDDLGym.core.compiler.model import RDDLLiftedModel
 from pyRDDLGym.core.parser.parser import RDDLParser
 from pyRDDLGym.core.parser.reader import RDDLReader
 
-from rddl_instance_generator.domain import Domain, ObjectType
+from rddl_instance_generator.domain import Domain
+from rddl_instance_generator.helper.templater import GroundedInstanceTemplate
 from rddl_instance_generator.instance import Instance
-
-
-class GroundedInstanceTemplate(TypedDict):
-    domain_name: str
-    domain_alias: str
-    file_id: str
-    types: List[ObjectType]
-    object_length: Dict[str, int]
-    non_fluents: List[str]
-    init_state: List[str]
 
 
 @dataclass
@@ -35,7 +26,7 @@ class RDDL:
         self.variable_params = getattr(self.model, "variable_params", {})
         self.variable_groundings = getattr(self.model, "variable_groundings", {})
 
-    def generate_lifted_model(self) -> RDDLLiftedModel:
+    def generate_lifted_model(self) -> RDDLLiftedModel:  # pragma: no cover
         """Generates the lifted model from the RDDL domain and instance."""
         reader = RDDLReader(self.domain.domain_file_path, self.instance.template_path)
         rddl_txt = reader.rddltxt

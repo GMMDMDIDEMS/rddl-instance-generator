@@ -1,9 +1,9 @@
 import random
 from itertools import combinations_with_replacement, cycle, islice, permutations
 from pathlib import Path
-from typing import Dict, Generator, List, Optional, Set, Tuple, TypedDict
+from typing import Dict, Generator, Optional, Set, Tuple
 
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Template
 from pydantic import (
     BaseModel,
     Field,
@@ -12,16 +12,11 @@ from pydantic import (
     computed_field,
 )
 
-from rddl_instance_generator.domain import Domain, ObjectType
-from memory_profiler import profile
-
-
-class InstanceTemplateData(TypedDict):
-    domain_name: str
-    domain_alias: str
-    file_id: str
-    types: List[ObjectType]
-    object_length: Dict[str, int]
+from rddl_instance_generator.domain import Domain
+from rddl_instance_generator.helper.templater import (
+    UngroundedInstanceTemplate,
+    get_instance_template,
+)
 
 
 class Instance(BaseModel):
@@ -74,10 +69,7 @@ class InstanceGenerator(BaseModel):
         )
         templates_path.mkdir(parents=True, exist_ok=True)
 
-        # load jinja2 template
-        # TODO refactor code: extract fucntion
-        env = Environment(loader=FileSystemLoader("rddl_instance_generator"))
-        template = env.get_template("template.jinja2")
+        template: Template = get_instance_template()
 
         file_id = "_".join(map(str, object_combination))
         filename = f"instance_{file_id}.rddl"
@@ -91,7 +83,7 @@ class InstanceGenerator(BaseModel):
             object_lengths=object_length_mapping,
         )
 
-        context: InstanceTemplateData = {
+        context: UngroundedInstanceTemplate = {
             "domain_name": self.domain.name.lower(),
             "domain_alias": self.domain.domain_alias,
             "file_id": file_id,
