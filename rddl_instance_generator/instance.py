@@ -1,7 +1,7 @@
 import random
 from itertools import combinations_with_replacement, cycle, islice, permutations
 from pathlib import Path
-from typing import Dict, Generator, Optional, Set, Tuple
+from typing import Annotated, Any, Dict, Generator, Optional, Set, Tuple
 
 from jinja2 import Template
 from pydantic import (
@@ -10,6 +10,7 @@ from pydantic import (
     FilePath,
     InstanceOf,
     computed_field,
+    model_validator,
 )
 
 from rddl_instance_generator.domain import Domain
@@ -20,10 +21,28 @@ from rddl_instance_generator.helper.templater import (
 
 
 class Instance(BaseModel):
-    identifier: str
+    identifier: str = Field(..., min_length=3)
     size: int = Field(gt=0)
     template_path: Optional[FilePath] = None
-    object_lengths: Dict[str, int]
+    object_lengths: Dict[str, Annotated[int, Field(strict=True, gt=0)]]
+
+    @model_validator(mode="before")
+    @classmethod
+    def validate_object_lengths(cls, data: Dict[str, Any]) -> Dict[str, Any]:
+        object_lengths = data.get("object_lengths", {})
+        if not object_lengths:
+            raise ValueError("object_length dict must not be empty.")
+        for k, v in object_lengths.items():
+            if not isinstance(k, str):
+                raise ValueError(f"'{k}' must be of type 'str'.")
+            if not isinstance(v, int):
+                raise ValueError(f"'{v}' must be of type 'int'.")
+            if v <= 0:
+                raise ValueError(f"'{v}' must be greater than 0.")
+        return data
+
+    # TODO add validation step checking for identifier and object_lengths match
+    # TODO are there domains with only one object type? If yes, identifier: str = Field(..., min_length=3) cannot be achieved/guranteed
 
 
 class InstanceGenerator(BaseModel):
