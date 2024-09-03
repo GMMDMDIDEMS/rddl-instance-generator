@@ -112,7 +112,7 @@ def test_num_instances_callback():
         num_instances_callback(0)
 
 
-def test_load_config(tmp_path):
+def test_load_config(tmp_path: Path):
     # tmp_path fixture will provide a temporary
     # directory unique to the test invocation
     config_data = {"key": "value"}
