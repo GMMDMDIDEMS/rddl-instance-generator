@@ -10,6 +10,7 @@ from pydantic import (
     FilePath,
     InstanceOf,
     computed_field,
+    field_validator,
     model_validator,
 )
 
@@ -38,8 +39,18 @@ class Instance(BaseModel):
             if not isinstance(v, int):
                 raise ValueError(f"'{v}' must be of type 'int'.")
             if v <= 0:
-                raise ValueError(f"'{v}' must be greater than 0.")
+                raise ValueError("Value must be greater than 0.")
         return data
+
+    @field_validator("template_path")
+    @classmethod
+    def validate_template_path(cls, v: Any) -> FilePath:
+        if isinstance(v, Path):
+            if not v.name.startswith("instance"):
+                raise ValueError("Instance template must start with 'instance'.")
+            if v.suffix != ".rddl":
+                raise ValueError("Instance template must have file type '.rddl'.")
+        return v
 
     # TODO add validation step checking for identifier and object_lengths match
     # TODO are there domains with only one object type? If yes, identifier: str = Field(..., min_length=3) cannot be achieved/guranteed
@@ -54,6 +65,12 @@ class InstanceGenerator(BaseModel):
     @property
     def num_objects(self) -> int:
         return len(self.domain.types)
+
+    @property
+    def template_folder_path(self) -> FilePath:
+        templates_path = self.domain.get_template_folder() / f"size_{self.size}"
+        templates_path.mkdir(parents=True, exist_ok=True)
+        return templates_path
 
     @computed_field
     @property
@@ -83,16 +100,13 @@ class InstanceGenerator(BaseModel):
         return seeds
 
     def generate_template(self, object_combination: Tuple[int, ...]) -> Instance:
-        templates_path = Path(
-            "domains", str(self.domain.name), "data", "templates", f"size_{self.size}"
-        )
-        templates_path.mkdir(parents=True, exist_ok=True)
+        assert sum(object_combination) == self.size
 
         template: Template = get_instance_template()
 
         file_id = "_".join(map(str, object_combination))
         filename = f"instance_{file_id}.rddl"
-        filepath = templates_path / filename
+        filepath = self.template_folder_path / filename
 
         object_length_mapping = self.get_object_length_mapping(object_combination)
 

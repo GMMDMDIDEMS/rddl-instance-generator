@@ -79,7 +79,12 @@ class Domain(BaseModel):
 
     @computed_field
     def domain_file_path(self) -> FilePath:
-        return Path("domains", self.name, "domain.rddl")
+        path = Path("domains", self.name, "domain.rddl")
+        assert path.exists(), f"'domain.rddl' file does not exist at {path}"
+        return path
+
+    def get_template_folder(self) -> FilePath:
+        return Path("domains", self.name, "data/templates")
 
     @classmethod
     def from_yaml(cls, file_path: DirectoryPath) -> "Domain":

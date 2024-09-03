@@ -3,13 +3,17 @@ from pathlib import Path
 import random
 from typing import List, Tuple, Union
 
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Template
 from pyRDDLGym.core.compiler.model import RDDLLiftedModel
 from pyRDDLGym.core.parser.parser import RDDLParser
 from pyRDDLGym.core.parser.reader import RDDLReader
+from pydantic import FilePath
 
 from rddl_instance_generator.domain import Domain
-from rddl_instance_generator.helper.templater import GroundedInstanceTemplate
+from rddl_instance_generator.helper.templater import (
+    GroundedInstanceTemplate,
+    get_instance_template,
+)
 from rddl_instance_generator.instance import Instance
 
 
@@ -38,6 +42,12 @@ class RDDL:
     @staticmethod
     def convert_grounded_to_instance(v: str):
         return v.replace("___", "(").replace("__", ",") + ")"
+
+    def get_file_path(self) -> FilePath:
+        return Path(
+            str(self.domain.get_template_folder()).replace("templates", ""),
+            f"size_{self.instance.size}",
+        )
 
     def get_random_sample(
         self,
@@ -109,19 +119,10 @@ class RDDL:
         return nfs, sfs
 
     def write_instance(self) -> None:
-        env = Environment(loader=FileSystemLoader("rddl_instance_generator"))
-        template = env.get_template("template.jinja2")
-
-        folder_path = Path(
-            "domains",
-            str(self.domain.name),
-            "data",
-            f"size_{self.instance.size}",
-        )
-        folder_path.mkdir(parents=True, exist_ok=True)
+        template: Template = get_instance_template()
 
         file_name = f"instance_{self.instance.identifier}_{self.seed}.rddl"
-        filepath = folder_path / file_name
+        filepath = self.get_file_path() / file_name
 
         nfs, sfs = self.set_pvar_groundings()
 
