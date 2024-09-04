@@ -24,7 +24,7 @@ from rddl_instance_generator.helper.templater import (
 class Instance(BaseModel):
     identifier: str = Field(..., min_length=3)
     size: int = Field(gt=0)
-    template_path: Optional[FilePath] = None
+    template_path: Optional[FilePath]
     object_lengths: Dict[str, Annotated[int, Field(strict=True, gt=0)]]
 
     @model_validator(mode="before")
@@ -49,7 +49,7 @@ class Instance(BaseModel):
             if not v.name.startswith("instance"):
                 raise ValueError("Instance template must start with 'instance'.")
             if v.suffix != ".rddl":
-                raise ValueError("Instance template must have file type '.rddl'.")
+                raise ValueError("XXInstance template must have file type '.rddl'.XX")
         return v
 
     # TODO add validation step checking for identifier and object_lengths match
@@ -114,6 +114,7 @@ class InstanceGenerator(BaseModel):
             identifier=file_id,
             size=self.size,
             object_lengths=object_length_mapping,
+            template_path=filepath,
         )
 
         context: UngroundedInstanceTemplate = {
@@ -128,8 +129,6 @@ class InstanceGenerator(BaseModel):
 
         with open(filepath, "w", encoding="utf-8") as file:
             file.write(instance_template)
-
-        instance.template_path = filepath
 
         return instance
 
