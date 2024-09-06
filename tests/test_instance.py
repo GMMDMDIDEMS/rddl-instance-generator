@@ -1,206 +1,100 @@
 from pathlib import Path
-from pydantic import ValidationError
+from pydantic import FilePath, ValidationError
 import pytest
+from rddl_instance_generator.helper.templater import UngroundedInstanceTemplateData
 from rddl_instance_generator.instance import Instance, InstanceGenerator
 
 
-def test_instance_valid():
-    instance = Instance(
-        identifier="5_10",
-        size=10,
-        template_path=None,
-        object_lengths={"object1": 5, "object2": 10},
-    )
-    assert isinstance(instance.identifier, str)
-    assert instance.identifier == "5_10"
-    assert instance.size == 10
-    assert instance.template_path is None
-    assert instance.object_lengths == {"object1": 5, "object2": 10}
+class TestInstance:
+    def test_instance_identifier(self, instance: Instance):
+        assert instance.identifier == "5_10"
 
+    def test_instance_size(self, instance: Instance):
+        assert instance.size == 15
 
-def test_instance_with_valid_template_path(tmp_path: Path):
-    template_file = tmp_path / "instance_template.rddl"
-    template_file.touch()
-    instance = Instance(
-        identifier="2_3",
-        size=5,
-        template_path=template_file,
-        object_lengths={"object_1": 2, "type2": 3},
-    )
-    assert instance.template_path == template_file
-
-
-def test_instance_invalid_size(tmp_path):
-    template_file = tmp_path / "instance_template.rddl"
-    template_file.touch()
-    # invalid size: size must be greater than 0
-    with pytest.raises(ValidationError, match="Input should be greater than 0"):
-        Instance(
-            identifier="5_10",
-            size=0,
-            template_path=template_file,
-            object_lengths={"object1": 5, "object2": 10},
-        )
-
-
-def test_instance_invalid_template_path():
-    with pytest.raises(ValidationError):
-        Instance(
-            identifier="5_10",
-            size=10,
-            template_path=Path("invalid/path/to/template"),
-            object_lengths={"object1": 5, "object2": 10},
-        )
-
-
-def test_instance_object_lengths_empty():
-    with pytest.raises(ValidationError, match="object_length dict must not be empty."):
-        Instance(
-            identifier="test_instance",
-            size=5,
-            object_lengths={},
-        )
-
-
-def test_instance_object_lengths_negative(tmp_path: Path):
-    template_file = tmp_path / "instance_template.rddl"
-    template_file.touch()
-    with pytest.raises(ValidationError, match="Value must be greater than 0."):
-        Instance(
-            identifier="test_instance",
-            size=5,
-            object_lengths={"object_1": 0},
-            template_path=template_file,
-        )
-
-
-def test_instance_invalid_identifier(tmp_path: Path):
-    template_file = tmp_path / "instance_template.rddl"
-    template_file.touch()
-    with pytest.raises(
-        ValidationError, match="String should have at least 3 characters"
+    def test_instance_template_file_path(
+        self, instance: Instance, instance_template_file: FilePath
     ):
-        Instance(
-            identifier="id",
-            size=5,
-            object_lengths={"object_1": 1},
-            template_path=template_file,
-        )
+        assert instance.template_path == instance_template_file
 
+    def test_object_lengths(self, instance: Instance):
+        assert instance.object_lengths == {"object_1": 5, "object_2": 10}
 
-def test_instance_invalid_object_length_key_type(tmp_path: Path):
-    template_file = tmp_path / "instance_template.rddl"
-    template_file.touch()
-    with pytest.raises(ValueError, match="Value error, '1' must be of type 'str'"):
-        Instance(
-            identifier="valid_id",
-            size=5,
-            object_lengths={1: 1},  # type: ignore [pylance]
-            template_path=template_file,
-        )
-
-
-def test_instance_invalid_object_length_value(tmp_path: Path):
-    template_file = tmp_path / "instance_template.rddl"
-    template_file.touch()
-    with pytest.raises(
-        ValueError, match="Value error, 'invalid_value' must be of type 'int'."
+    def test_instance_incorrect_size(
+        self,
+        instance_template_file: FilePath,
+        ungrounded_template_data: UngroundedInstanceTemplateData,
     ):
-        Instance(
-            identifier="valid_id",
-            size=5,
-            object_lengths={"object_1": "invalid_value"},  # type: ignore [pylance]
-            template_path=template_file,
-        )
+        with pytest.raises(ValidationError) as exc_info:
+            Instance.from_ungrounded(
+                ungrounded_data=ungrounded_template_data,
+                size=14,
+                template_path=instance_template_file,
+            )
 
+        assert exc_info.value.errors(
+            include_context=False, include_input=False, include_url=False
+        ) == [
+            {
+                "type": "value_error",
+                "loc": (),
+                "msg": "Value error, The instance size 14 must match the sum of the object lengths 15.",
+            }
+        ]
 
-def test_instance_undefined_identifier(tmp_path: Path):
-    template_file = tmp_path / "instance_template.rddl"
-    template_file.touch()
-    with pytest.raises(ValueError, match="Field required"):
-        Instance(  # type: ignore [pylance]
-            size=5,
-            object_lengths={"object_1": 2, "type2": 3},
-            template_path=template_file,
-        )
-
-
-def test_instance_undefined_size(tmp_path: Path):
-    template_file = tmp_path / "instance_template.rddl"
-    template_file.touch()
-    with pytest.raises(ValueError, match="Field required"):
-        Instance(  # type: ignore [pylance]
-            identifier="2_3",
-            object_lengths={"object_1": 2, "type2": 3},
-            template_path=template_file,
-        )
-
-
-def test_instance_undefined_object_length(tmp_path: Path):
-    template_file = tmp_path / "instance_template.rddl"
-    template_file.touch()
-    with pytest.raises(
-        ValueError, match="Value error, object_length dict must not be empty."
+    def test_instance_invalid_template_path(
+        self,
+        ungrounded_template_data: UngroundedInstanceTemplateData,
     ):
-        Instance(  # type: ignore [pylance]
-            identifier="2_3", size=5, template_path=template_file
-        )
+        with pytest.raises(ValidationError):
+            Instance.from_ungrounded(
+                ungrounded_data=ungrounded_template_data,
+                size=15,
+                template_path=Path("invalid/path/to/template"),
+            )
 
-
-def test_instance_valid_size(tmp_path: Path):
-    template_file = tmp_path / "instance_template.rddl"
-    template_file.touch()
-    instance = Instance(
-        identifier="2_3",
-        size=1,
-        object_lengths={"object_1": 2, "type2": 3},
-        template_path=template_file,
-    )
-    assert instance.size == 1
-
-
-def test_template_folder_path(tmp_path: Path):
-    template_file: Path = tmp_path / "instance_2_3.rddl"
-    template_file.touch()
-    instance = Instance(
-        identifier="2_3",
-        size=5,
-        template_path=template_file,
-        object_lengths={"object_1": 2, "type2": 3},
-    )
-    assert instance.template_path.name.startswith("instance_")
-    assert instance.template_path.suffix == ".rddl"
-    assert instance.identifier in instance.template_path.name
-
-
-def test_invalid_template_path_name(tmp_path: Path):
-    template_file: Path = tmp_path / "invalid.rddl"
-    template_file.touch()
-    with pytest.raises(
-        ValueError, match="Instance template must start with 'instance'."
+    def test_invalid_template_path_name(
+        self, tmp_path: Path, ungrounded_template_data: UngroundedInstanceTemplateData
     ):
-        Instance(
-            identifier="2_3",
-            size=5,
-            template_path=template_file,
-            object_lengths={"object_1": 2, "type2": 3},
-        )
+        template_file: Path = tmp_path / "invalid.rddl"
+        template_file.touch()
+        with pytest.raises(ValidationError) as exc_info:
+            Instance.from_ungrounded(
+                ungrounded_data=ungrounded_template_data,
+                size=15,
+                template_path=template_file,
+            )
 
+        assert exc_info.value.errors(
+            include_context=False, include_input=False, include_url=False
+        ) == [
+            {
+                "type": "value_error",
+                "loc": ("template_path",),
+                "msg": "Value error, Instance template must start with 'instance'.",
+            }
+        ]
 
-def test_invalid_template_path_suffix(tmp_path: Path):
-    template_file: Path = tmp_path / "instance.txt"
-    template_file.touch()
-    with pytest.raises(
-        ValueError, match="Instance template must have file type '.rddl'."
+    def test_invalid_template_path_suffix(
+        self,
+        tmp_path: Path,
+        ungrounded_template_data: UngroundedInstanceTemplateData,
     ):
-        Instance(
-            identifier="2_3",
-            size=5,
-            template_path=template_file,
-            object_lengths={"object_1": 2, "type2": 3},
-        )
+        template_file: Path = tmp_path / "instance.txt"
+        template_file.touch()
+        with pytest.raises(ValidationError) as exc_info:
+            Instance.from_ungrounded(
+                ungrounded_data=ungrounded_template_data,
+                size=15,
+                template_path=template_file,
+            )
 
-
-def test_instance_generator_template_folder(instance_generator: InstanceGenerator):
-    path: Path = instance_generator.template_folder_path
-    assert path.name.startswith("size_")
+        assert exc_info.value.errors(
+            include_context=False, include_input=False, include_url=False
+        ) == [
+            {
+                "type": "value_error",
+                "loc": ("template_path",),
+                "msg": "Value error, Instance template must have file type '.rddl'.",
+            }
+        ]
