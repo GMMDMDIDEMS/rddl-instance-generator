@@ -1,1 +1,0 @@
-# rddl-instance-generator
