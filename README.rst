@@ -6,7 +6,7 @@
 
 rddl-instance-generator
 =======================
-
+The :code:`rddl-instance-generator` module offers simple RDDL instance file generation of any domain.
 
 Installation
 ------------
