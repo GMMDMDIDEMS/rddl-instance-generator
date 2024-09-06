@@ -4,7 +4,6 @@ This repository provides a RDDL (Relational Dynamic Influence Diagram Language) 
 
 ### Background
 Generating unique instances for RDDL domains is crucial for evaluating and testing sequential-decision-making algorithms. However, creating these instances manually for each domain can be time-consuming and complex. This project aims to simplify this process by providing an automated way to generate these instances.
-
 <br clear="right"/>
 
 ## Features
