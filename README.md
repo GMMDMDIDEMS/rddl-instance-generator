@@ -41,7 +41,7 @@ The `rddl-instance-generator` is built using [Poetry](https://python-poetry.org/
    ```
 
 ## Usage
-To generate RDDL instance files, use the rddl-instance-generator command. Below are the available options and their descriptions:
+To generate RDDL instance files, use the rddl-instance-generator command:
 ```
 rddl-instance-generator --domain-name Domain --num-instances 100 --size 10
 ```
