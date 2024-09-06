@@ -2,6 +2,10 @@
 <img align="right" src="docs/icon.png" width="300px">
 This repository provides a RDDL (Relational Dynamic Influence Diagram Language) instance generator, designed to automate the domain-specific process of generating instance files.
 
+### Background
+Generating unique instances for RDDL domains is crucial for evaluating and testing sequential-decision-making algorithms. However, creating these instances manually for each domain can be time-consuming and complex. This project aims to simplify this process by providing an automated way to generate these instances.
+
+
 ## Features
 - Generate RDDL instance files from domain-specific configuration files.
 - Support for multiple domains, with flexibility to define and add custom domains.
@@ -38,4 +42,14 @@ The `rddl-instance-generator` is built using [Poetry](https://python-poetry.org/
    poetry install --all-extras
    ```
 
+## Usage
+To generate RDDL instance files, use the rddl-instance-generator command. Below are the available options and their descriptions:
+```
+rddl-instance-generator --domain-name Domain --num-instances 100 --size 10
+```
+
+For additional help and options, use:
+```
+rddl-instance-generator --help
+```
 
