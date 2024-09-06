@@ -1,7 +1,6 @@
 import random
 from itertools import combinations_with_replacement, cycle, islice, permutations
-from pathlib import Path
-from typing import Annotated, Any, Dict, Generator, Optional, Set, Tuple
+from typing import Any, Dict, Generator, Set, Tuple
 
 from jinja2 import Template
 from pydantic import (
@@ -16,44 +15,57 @@ from pydantic import (
 
 from rddl_instance_generator.domain import Domain
 from rddl_instance_generator.helper.templater import (
-    UngroundedInstanceTemplate,
+    UngroundedInstanceTemplateData,
     get_instance_template,
 )
 
 
-class Instance(BaseModel):
-    identifier: str = Field(..., min_length=3)
+class Instance(UngroundedInstanceTemplateData):
     size: int = Field(gt=0)
-    template_path: Optional[FilePath]
-    object_lengths: Dict[str, Annotated[int, Field(strict=True, gt=0)]]
+    template_path: FilePath
 
     @model_validator(mode="before")
     @classmethod
-    def validate_object_lengths(cls, data: Dict[str, Any]) -> Dict[str, Any]:
+    def validate_matching_size(cls, data: Dict[str, Any]) -> Dict[str, Any]:
+        size = data.get("size")
         object_lengths = data.get("object_lengths", {})
-        if not object_lengths:
-            raise ValueError("object_length dict must not be empty.")
-        for k, v in object_lengths.items():
-            if not isinstance(k, str):
-                raise ValueError(f"'{k}' must be of type 'str'.")
-            if not isinstance(v, int):
-                raise ValueError(f"'{v}' must be of type 'int'.")
-            if v <= 0:
-                raise ValueError("Value must be greater than 0.")
+
+        expected_size = sum(object_lengths.values())
+
+        if size != expected_size:
+            raise ValueError(
+                (
+                    f"The instance size {size} must match the sum of the "
+                    f"object lengths {expected_size}."
+                )
+            )
+
         return data
 
     @field_validator("template_path")
     @classmethod
-    def validate_template_path(cls, v: Any) -> FilePath:
-        if isinstance(v, Path):
-            if not v.name.startswith("instance"):
-                raise ValueError("Instance template must start with 'instance'.")
-            if v.suffix != ".rddl":
-                raise ValueError("XXInstance template must have file type '.rddl'.XX")
+    def validate_template_path(cls, v: FilePath) -> FilePath:
+        if not v.name.startswith("instance"):
+            raise ValueError("Instance template must start with 'instance'.")
+        if v.suffix != ".rddl":
+            raise ValueError("Instance template must have file type '.rddl'.")
         return v
 
-    # TODO add validation step checking for identifier and object_lengths match
-    # TODO are there domains with only one object type? If yes, identifier: str = Field(..., min_length=3) cannot be achieved/guranteed
+    @classmethod
+    def from_ungrounded(
+        cls,
+        ungrounded_data: UngroundedInstanceTemplateData,
+        template_path: FilePath,
+        size: int = Field(gt=0),
+    ) -> "Instance":
+        return cls(
+            identifier=ungrounded_data.identifier,
+            domain_alias=ungrounded_data.domain_alias,
+            types=ungrounded_data.types,
+            object_lengths=ungrounded_data.object_lengths,
+            size=size,
+            template_path=template_path,
+        )
 
 
 class InstanceGenerator(BaseModel):
@@ -110,25 +122,24 @@ class InstanceGenerator(BaseModel):
 
         object_length_mapping = self.get_object_length_mapping(object_combination)
 
-        instance = Instance(
+        context = UngroundedInstanceTemplateData(
+            # domain_name=self.domain.name.lower(),
             identifier=file_id,
-            size=self.size,
+            domain_alias=self.domain.domain_alias,
+            types=self.domain.types,
             object_lengths=object_length_mapping,
-            template_path=filepath,
         )
-
-        context: UngroundedInstanceTemplate = {
-            "domain_name": self.domain.name.lower(),
-            "domain_alias": self.domain.domain_alias,
-            "file_id": file_id,
-            "types": self.domain.types,
-            "object_length": object_length_mapping,
-        }
 
         instance_template = template.render(context)
 
         with open(filepath, "w", encoding="utf-8") as file:
             file.write(instance_template)
+
+        instance = Instance.from_ungrounded(
+            ungrounded_data=context,
+            size=self.size,
+            template_path=filepath,
+        )
 
         return instance
 
