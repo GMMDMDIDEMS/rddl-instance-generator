@@ -38,7 +38,11 @@ def load_config(file_path: Path):
 
 
 def domain_callback(value: str):
-    supported_domains = [str(domain.name) for domain in DOMAIN_PATH.iterdir()]
+    supported_domains = [
+        str(domain.name)
+        for domain in DOMAIN_PATH.iterdir()
+        if not domain.name.startswith(".")
+    ]
     if value not in supported_domains:
         raise typer.BadParameter(
             f"Unsupported domain. Choose from: {', '.join(supported_domains)}",
