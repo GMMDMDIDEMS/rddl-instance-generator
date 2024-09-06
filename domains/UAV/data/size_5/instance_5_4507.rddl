@@ -1,0 +1,56 @@
+non-fluents nf_kinematic_UAVs_con__5 {
+    domain = kinematic_UAVs_con;
+    objects {
+        aircraft : {a1,a2,a3,a4,a5};
+    };
+    non-fluents {
+        CONTROLLABLE(a2);
+        MIN-ACC(a4) = -1.0;
+        MAX-ACC(a5) = 1.0;
+        MIN-DELTA-PHI(a5) = -1.0;
+        MAX-DELTA-PHI(a2) = 1.0;
+        MAX-DELTA-PHI(a3) = 1.0;
+        MIN-DELTA-THETA(a1) = -1.0;
+        MIN-DELTA-THETA(a2) = -1.0;
+        MIN-DELTA-THETA(a3) = -1.0;
+        MIN-DELTA-THETA(a4) = -1.0;
+        MIN-DELTA-THETA(a5) = -1.0;
+        MAX-DELTA-THETA(a1) = 1.0;
+        MAX-DELTA-THETA(a2) = 1.0;
+        MAX-DELTA-THETA(a5) = 1.0;
+        GOAL-X(a1) = 100.0;
+        GOAL-X(a3) = 100.0;
+        GOAL-X(a4) = 100.0;
+        GOAL-Y(a1) = 100.0;
+        GOAL-Y(a4) = 100.0;
+        GOAL-Z(a1) = 100.0;
+        GOAL-Z(a2) = 100.0;
+        GOAL-Z(a3) = 100.0;
+        GOAL-Z(a5) = 100.0;
+    };
+}
+
+instance inst_kinematic_UAVs_con__5 {
+    domain = kinematic_UAVs_con;
+    non-fluents = nf_kinematic_UAVs_con__5;
+    init-state {
+        pos-x(a3) = 1382.410069506823;
+        pos-x(a5) = 22264.50469860613;
+        pos-y(a1) = 8786.993013974492;
+        pos-y(a2) = 16160.452082676458;
+        pos-y(a3) = 16570.256907060742;
+        pos-y(a5) = 7645.606958670121;
+        pos-z(a1) = 16982.897924003853;
+        pos-z(a2) = 11288.648532600288;
+        pos-z(a4) = 16980.846078204588;
+        pos-z(a5) = 18739.839393836537;
+        theta(a1) = -0.41512583384873136;
+        theta(a2) = 0.08590129354809228;
+        phi(a3) = 0.5279033022489024;
+        psi(a1) = -0.051531234864835795;
+        vel(a1) = 96.65453465894326;
+    };
+    max-nondef-actions = 1;
+    horizon = 40;
+    discount = 1.0;
+}

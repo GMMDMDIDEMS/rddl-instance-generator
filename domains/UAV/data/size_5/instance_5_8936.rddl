@@ -1,0 +1,71 @@
+non-fluents nf_kinematic_UAVs_con__5 {
+    domain = kinematic_UAVs_con;
+    objects {
+        aircraft : {a1,a2,a3,a4,a5};
+    };
+    non-fluents {
+        CONTROLLABLE(a2);
+        MIN-ACC(a1) = -1.0;
+        MIN-ACC(a2) = -1.0;
+        MIN-ACC(a3) = -1.0;
+        MIN-ACC(a4) = -1.0;
+        MIN-ACC(a5) = -1.0;
+        MAX-ACC(a1) = 1.0;
+        MAX-ACC(a2) = 1.0;
+        MAX-ACC(a3) = 1.0;
+        MAX-ACC(a4) = 1.0;
+        MAX-ACC(a5) = 1.0;
+        MIN-DELTA-PHI(a2) = -1.0;
+        MIN-DELTA-PHI(a3) = -1.0;
+        MIN-DELTA-PHI(a4) = -1.0;
+        MAX-DELTA-PHI(a1) = 1.0;
+        MAX-DELTA-PHI(a2) = 1.0;
+        MAX-DELTA-PHI(a3) = 1.0;
+        MAX-DELTA-PHI(a4) = 1.0;
+        MAX-DELTA-PHI(a5) = 1.0;
+        MIN-DELTA-THETA(a2) = -1.0;
+        MIN-DELTA-THETA(a4) = -1.0;
+        MAX-DELTA-THETA(a2) = 1.0;
+        MAX-DELTA-THETA(a3) = 1.0;
+        MAX-DELTA-THETA(a4) = 1.0;
+        MAX-DELTA-THETA(a5) = 1.0;
+        GOAL-X(a3) = 100.0;
+        GOAL-X(a4) = 100.0;
+        GOAL-Y(a1) = 100.0;
+        GOAL-Y(a3) = 100.0;
+        GOAL-Y(a4) = 100.0;
+        GOAL-Y(a5) = 100.0;
+        GOAL-Z(a4) = 100.0;
+        GOAL-Z(a5) = 100.0;
+    };
+}
+
+instance inst_kinematic_UAVs_con__5 {
+    domain = kinematic_UAVs_con;
+    non-fluents = nf_kinematic_UAVs_con__5;
+    init-state {
+        pos-x(a1) = 39587.56260696873;
+        pos-x(a4) = 42283.48376618832;
+        pos-y(a4) = 10823.240469040767;
+        pos-y(a5) = 46782.24247052929;
+        pos-z(a1) = 19562.55903776125;
+        pos-z(a2) = 46395.47006685458;
+        pos-z(a3) = 10501.415090637018;
+        pos-z(a4) = 4607.199312234817;
+        pos-z(a5) = 48980.39799451112;
+        theta(a2) = -0.3148593881565722;
+        theta(a5) = -0.5079432970062985;
+        phi(a1) = -0.7478942103094572;
+        phi(a3) = 0.2523310529714142;
+        phi(a4) = 0.8682037914995675;
+        phi(a5) = 0.6567392076114966;
+        psi(a2) = -0.7770193205261562;
+        psi(a4) = -0.9659373903399198;
+        psi(a5) = -0.983113075233393;
+        vel(a3) = 84.58867738890709;
+        vel(a4) = 54.01714552533456;
+    };
+    max-nondef-actions = 1;
+    horizon = 40;
+    discount = 1.0;
+}

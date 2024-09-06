@@ -1,0 +1,67 @@
+non-fluents nf_kinematic_UAVs_con__5 {
+    domain = kinematic_UAVs_con;
+    objects {
+        aircraft : {a1,a2,a3,a4,a5};
+    };
+    non-fluents {
+        CONTROLLABLE(a5);
+        MIN-ACC(a2) = -1.0;
+        MIN-ACC(a4) = -1.0;
+        MIN-ACC(a5) = -1.0;
+        MAX-ACC(a1) = 1.0;
+        MAX-ACC(a2) = 1.0;
+        MAX-ACC(a3) = 1.0;
+        MAX-ACC(a4) = 1.0;
+        MIN-DELTA-PHI(a3) = -1.0;
+        MAX-DELTA-PHI(a1) = 1.0;
+        MAX-DELTA-PHI(a3) = 1.0;
+        MAX-DELTA-PHI(a5) = 1.0;
+        MIN-DELTA-THETA(a1) = -1.0;
+        MIN-DELTA-THETA(a2) = -1.0;
+        MIN-DELTA-THETA(a3) = -1.0;
+        MIN-DELTA-THETA(a5) = -1.0;
+        MAX-DELTA-THETA(a1) = 1.0;
+        MAX-DELTA-THETA(a2) = 1.0;
+        MAX-DELTA-THETA(a3) = 1.0;
+        MAX-DELTA-THETA(a4) = 1.0;
+        MAX-DELTA-THETA(a5) = 1.0;
+        GOAL-X(a5) = 100.0;
+        GOAL-Y(a1) = 100.0;
+        GOAL-Y(a2) = 100.0;
+        GOAL-Y(a3) = 100.0;
+        GOAL-Y(a4) = 100.0;
+        GOAL-Y(a5) = 100.0;
+        GOAL-Z(a3) = 100.0;
+    };
+}
+
+instance inst_kinematic_UAVs_con__5 {
+    domain = kinematic_UAVs_con;
+    non-fluents = nf_kinematic_UAVs_con__5;
+    init-state {
+        pos-x(a1) = 9254.579640305716;
+        pos-x(a2) = 15086.309916469181;
+        pos-x(a3) = 33824.900820223236;
+        pos-x(a4) = 8833.610940845616;
+        pos-x(a5) = 5698.562305343924;
+        pos-y(a3) = 10709.071569604184;
+        pos-z(a1) = 30888.23184936323;
+        pos-z(a2) = 48617.162138190426;
+        pos-z(a3) = 35123.83646759185;
+        pos-z(a4) = 49686.211394838356;
+        pos-z(a5) = 11022.235918912365;
+        theta(a1) = 0.22312132107871574;
+        theta(a2) = 0.20644205929182857;
+        theta(a3) = -0.40267913393191956;
+        theta(a4) = -0.9736981473849828;
+        theta(a5) = 0.42108465235043147;
+        phi(a1) = -0.35589959777867675;
+        phi(a2) = 0.8846987431352047;
+        phi(a4) = -0.12253105073661485;
+        psi(a5) = 0.7316111583245155;
+        vel(a5) = 95.56783115756409;
+    };
+    max-nondef-actions = 1;
+    horizon = 40;
+    discount = 1.0;
+}

@@ -1,0 +1,79 @@
+non-fluents nf_kinematic_UAVs_con__7 {
+    domain = kinematic_UAVs_con;
+    objects {
+        aircraft : {a1,a2,a3,a4,a5,a6,a7};
+    };
+    non-fluents {
+        CONTROLLABLE(a2);
+        CONTROLLABLE(a6);
+        MIN-ACC(a1) = -5.814809454982248;
+        MIN-ACC(a2) = -7.0668079067543825;
+        MIN-ACC(a4) = -3.5424990858708743;
+        MIN-ACC(a5) = -2.403959092065934;
+        MIN-ACC(a6) = -3.924643617171565;
+        MIN-ACC(a7) = -5.265654750364533;
+        MAX-ACC(a1) = 1.0;
+        MAX-ACC(a2) = 1.0;
+        MAX-ACC(a3) = 1.0;
+        MAX-ACC(a4) = 1.0;
+        MAX-ACC(a5) = 1.0;
+        MAX-ACC(a6) = 1.0;
+        MAX-ACC(a7) = 1.0;
+        MIN-DELTA-PHI(a6) = -1.0;
+        MAX-DELTA-PHI(a2) = 1.0;
+        MAX-DELTA-PHI(a3) = 1.0;
+        MIN-DELTA-THETA(a2) = -1.0;
+        MIN-DELTA-THETA(a4) = -1.0;
+        MIN-DELTA-THETA(a5) = -1.0;
+        MIN-DELTA-THETA(a6) = -1.0;
+        MIN-DELTA-THETA(a7) = -1.0;
+        MAX-DELTA-THETA(a1) = 1.0;
+        MAX-DELTA-THETA(a2) = 1.0;
+        MAX-DELTA-THETA(a3) = 1.0;
+        MAX-DELTA-THETA(a4) = 1.0;
+        MAX-DELTA-THETA(a5) = 1.0;
+        MAX-DELTA-THETA(a6) = 1.0;
+        MAX-DELTA-THETA(a7) = 1.0;
+        GOAL-X(a2) = 100.0;
+        GOAL-X(a3) = 100.0;
+        GOAL-X(a4) = 100.0;
+        GOAL-Y(a1) = 100.0;
+        GOAL-Y(a4) = 100.0;
+        GOAL-Z(a1) = 100.0;
+        GOAL-Z(a3) = 100.0;
+        GOAL-Z(a4) = 100.0;
+        GOAL-Z(a5) = 100.0;
+    };
+}
+
+instance inst_kinematic_UAVs_con__7 {
+    domain = kinematic_UAVs_con;
+    non-fluents = nf_kinematic_UAVs_con__7;
+    init-state {
+        pos-x(a5) = 49241.39468214534;
+        pos-x(a6) = 1382.410069506823;
+        pos-y(a1) = 8786.993013974492;
+        pos-y(a3) = 16160.452082676458;
+        pos-y(a6) = 16570.256907060742;
+        pos-y(a7) = 7645.606958670121;
+        pos-z(a1) = 24215.714345042765;
+        pos-z(a2) = 8236.144609606605;
+        pos-z(a3) = 30134.330457000724;
+        pos-z(a4) = 16525.637963743313;
+        pos-z(a5) = 39198.27397927279;
+        pos-z(a6) = 40003.64704159169;
+        pos-z(a7) = 14502.740773151734;
+        theta(a1) = 0.5938571091125104;
+        theta(a2) = -0.07788984008881683;
+        theta(a4) = 0.04289819180622412;
+        theta(a5) = -0.753835019106837;
+        theta(a6) = 0.7649157618593501;
+        theta(a7) = -0.05891647380732579;
+        phi(a6) = -0.40995458120179706;
+        psi(a6) = -0.8302407343054656;
+        vel(a1) = 96.65453465894326;
+    };
+    max-nondef-actions = 1;
+    horizon = 40;
+    discount = 1.0;
+}

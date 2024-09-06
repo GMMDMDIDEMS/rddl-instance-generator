@@ -1,0 +1,15 @@
+non-fluents nf_kinematic_UAVs_con__4 {
+    domain = kinematic_UAVs_con;
+    objects {
+        aircraft : {a1,a2,a3,a4};
+    };
+}
+
+instance inst_kinematic_UAVs_con__4 {
+    domain = kinematic_UAVs_con;
+    non-fluents = nf_kinematic_UAVs_con__4;
+    
+    max-nondef-actions = 1;
+    horizon = 40;
+    discount = 1.0;
+}

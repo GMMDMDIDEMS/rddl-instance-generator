@@ -1,0 +1,88 @@
+non-fluents nf_kinematic_UAVs_con__7 {
+    domain = kinematic_UAVs_con;
+    objects {
+        aircraft : {a1,a2,a3,a4,a5,a6,a7};
+    };
+    non-fluents {
+        CONTROLLABLE(a5);
+        MIN-ACC(a1) = -8.069689842995931;
+        MIN-ACC(a2) = -2.6632204527546453;
+        MIN-ACC(a3) = -2.2976031542254987;
+        MIN-ACC(a4) = -3.235776808301143;
+        MIN-ACC(a5) = -8.224658755133149;
+        MIN-ACC(a6) = -7.542939359521309;
+        MIN-ACC(a7) = -6.670717326844279;
+        MAX-ACC(a1) = 1.0;
+        MAX-ACC(a2) = 1.0;
+        MAX-ACC(a4) = 1.0;
+        MAX-ACC(a6) = 1.0;
+        MIN-DELTA-PHI(a1) = -1.0;
+        MIN-DELTA-PHI(a2) = -1.0;
+        MIN-DELTA-PHI(a3) = -1.0;
+        MIN-DELTA-PHI(a4) = -1.0;
+        MIN-DELTA-PHI(a5) = -1.0;
+        MIN-DELTA-PHI(a6) = -1.0;
+        MIN-DELTA-PHI(a7) = -1.0;
+        MAX-DELTA-PHI(a5) = 1.0;
+        MAX-DELTA-PHI(a6) = 1.0;
+        MAX-DELTA-PHI(a7) = 1.0;
+        MIN-DELTA-THETA(a1) = -1.0;
+        MIN-DELTA-THETA(a2) = -1.0;
+        MIN-DELTA-THETA(a3) = -1.0;
+        MIN-DELTA-THETA(a4) = -1.0;
+        MIN-DELTA-THETA(a5) = -1.0;
+        MIN-DELTA-THETA(a6) = -1.0;
+        MAX-DELTA-THETA(a1) = 1.0;
+        MAX-DELTA-THETA(a3) = 1.0;
+        MAX-DELTA-THETA(a4) = 1.0;
+        MAX-DELTA-THETA(a5) = 1.0;
+        MAX-DELTA-THETA(a7) = 1.0;
+        GOAL-X(a6) = 100.0;
+        GOAL-Y(a1) = 100.0;
+        GOAL-Y(a2) = 100.0;
+        GOAL-Y(a3) = 100.0;
+        GOAL-Y(a4) = 100.0;
+        GOAL-Y(a5) = 100.0;
+        GOAL-Y(a6) = 100.0;
+        GOAL-Y(a7) = 100.0;
+        GOAL-Z(a3) = 100.0;
+    };
+}
+
+instance inst_kinematic_UAVs_con__7 {
+    domain = kinematic_UAVs_con;
+    non-fluents = nf_kinematic_UAVs_con__7;
+    init-state {
+        pos-x(a1) = 2916.8908676975193;
+        pos-x(a2) = 40892.36396420673;
+        pos-x(a3) = 37915.69962228544;
+        pos-x(a4) = 40516.240937252056;
+        pos-x(a5) = 35489.704411872044;
+        pos-x(a6) = 26172.234076597768;
+        pos-x(a7) = 23393.847988870963;
+        pos-y(a3) = 10709.071569604184;
+        pos-z(a2) = 44607.960485309086;
+        pos-z(a3) = 9428.424618305504;
+        pos-z(a4) = 758.7715880361334;
+        pos-z(a6) = 43995.54085078713;
+        pos-z(a7) = 29323.724654959227;
+        theta(a1) = -0.6366884021228454;
+        theta(a2) = -0.21645625526873724;
+        theta(a4) = -0.8382094606956776;
+        theta(a5) = 0.5306500496439772;
+        theta(a7) = -0.09982152714517234;
+        phi(a2) = -0.35589959777867675;
+        phi(a4) = 0.8846987431352047;
+        phi(a6) = -0.12253105073661485;
+        psi(a1) = -0.9786380109561919;
+        psi(a2) = -0.04180034852033221;
+        psi(a3) = -0.15204221247982952;
+        psi(a5) = 0.1270051040635516;
+        psi(a6) = -0.5901658775327046;
+        psi(a7) = 0.7372308833887751;
+        vel(a5) = 95.56783115756409;
+    };
+    max-nondef-actions = 1;
+    horizon = 40;
+    discount = 1.0;
+}

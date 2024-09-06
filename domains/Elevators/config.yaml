@@ -1,0 +1,122 @@
+name: "Elevators"
+domain_alias: "elevators_mdp"
+
+# Domain types
+types:
+  - name: elevator
+    kind: object
+    alias: e
+  - name: floor
+    kind: object
+    alias: f
+
+# Non-fluent variables
+non_fluents:
+  - name: ARRIVE-PARAM
+    type_value: float
+    default: 0.0
+    sampling_range:
+      min: 0.1
+      max: 0.5
+  - name: ELEVATOR-PENALTY-RIGHT-DIR
+    type_value: float
+    default: 0.75
+    sampling_range:
+      min: 0.5
+      max: 1.0
+  - name: ELEVATOR-PENALTY-WRONG-DIR
+    type_value: float
+    default: 3.00
+    sampling_range:
+      min: 2.0
+      max: 5.0
+  - name: TOP-FLOOR
+    type_value: bool
+    default: false
+    sampling_range:
+      min: 0.0
+      max: 1.0
+  - name: BOTTOM-FLOOR
+    type_value: bool
+    default: false
+    sampling_range:
+      min: 0.0
+      max: 1.0
+  - name: ADJACENT-UP
+    type_value: bool
+    default: false
+    sampling_range:
+      min: 0.0
+      max: 1.0
+
+# State-fluent variables
+state_fluents:
+  - name: person-waiting-up
+    type_value: bool
+    default: false
+    sampling_range:
+      min: 0.1
+      max: 0.3
+  - name: person-waiting-down
+    type_value: bool
+    default: false
+    sampling_range:
+      min: 0.1
+      max: 0.3
+  - name: person-in-elevator-going-up
+    type_value: bool
+    default: false
+    sampling_range:
+      min: 0.1
+      max: 0.2
+  - name: person-in-elevator-going-down
+    type_value: bool
+    default: false
+    sampling_range:
+      min: 0.1
+      max: 0.2
+  - name: elevator-dir-up
+    type_value: bool
+    default: true
+    sampling_range:
+      min: 0.0
+      max: 1.0
+  - name: elevator-closed
+    type_value: bool
+    default: true
+    sampling_range:
+      min: 0.0
+      max: 1.0
+  - name: elevator-at-floor
+    type_value: bool
+    default: false
+    sampling_range:
+      min: 0.0
+      max: 1.0
+
+# Action-fluent variables
+action_fluents:
+  - name: move-current-dir
+    type_value: bool
+    default: false
+    sampling_range:
+      min: 0.0
+      max: 1.0
+  - name: open-door-going-up
+    type_value: bool
+    default: false
+    sampling_range:
+      min: 0.0
+      max: 1.0
+  - name: open-door-going-down
+    type_value: bool
+    default: false
+    sampling_range:
+      min: 0.0
+      max: 1.0
+  - name: close-door
+    type_value: bool
+    default: false
+    sampling_range:
+      min: 0.0
+      max: 1.0

@@ -1,0 +1,16 @@
+non-fluents nf_elevators_mdp__2_3 {
+    domain = elevators_mdp;
+    objects {
+        elevator : {e1,e2};
+        floor : {f1,f2,f3};
+    };
+}
+
+instance inst_elevators_mdp__2_3 {
+    domain = elevators_mdp;
+    non-fluents = nf_elevators_mdp__2_3;
+    
+    max-nondef-actions = 1;
+    horizon = 40;
+    discount = 1.0;
+}
