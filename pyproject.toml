@@ -3,7 +3,7 @@ name = "rddl-instance-generator"
 version = "0.1.0"
 description = ""
 authors = ["GMMDMDIDEMS"]
-readme = "README.rst"
+readme = "README.md"
 
 [tool.poetry.scripts]
 rddl-instance-generator = "rddl_instance_generator.main:app"
@@ -20,7 +20,7 @@ python-constraint2 = "^2.0.0b5"
 
 [tool.pytest.ini_options]
 minversion = "8.0"
-addopts = "--cov --cov-config=.coveragerc --cov-report html --cov-report xml --cov-report term"
+addopts = "--cov --cov-config=.coveragerc --cov-report term"
 testpaths = ["tests"]
 
 [tool.mutmut]
@@ -37,7 +37,6 @@ ipykernel = "^6.29.5"
 pytest = "^8.3.2"
 pytest-cov = "^5.0.0"
 mutmut = "^2.5.1"
-
 
 [tool.poetry.group.test.dependencies]
 memory-profiler = "^0.61.0"
