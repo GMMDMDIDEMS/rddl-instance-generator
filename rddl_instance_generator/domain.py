@@ -56,14 +56,6 @@ class Fluent(BaseModel):
 
         return v
 
-        # if isinstance(default_type, bool):
-        # for v in value_bounds.values():
-        #     if not 0.0 <= v <= 1.0:
-        #         raise ValueError(
-        #             "Fluent type with default type 'bool' must have value"
-        #             "range values in [0.0, 1.0]"
-        #         )
-
     @model_validator(mode="after")
     def ensure_matching_types(self) -> "Fluent":
         default_type = type(self.default)
