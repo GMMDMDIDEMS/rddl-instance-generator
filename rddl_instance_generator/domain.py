@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Dict, List, Literal, Union
+from typing import Any, Dict, List, Literal, Optional, Union
 
 import yaml
 from pydantic import (
@@ -7,6 +7,7 @@ from pydantic import (
     DirectoryPath,
     FilePath,
     computed_field,
+    field_validator,
     model_validator,
 )
 
@@ -21,44 +22,70 @@ class Fluent(BaseModel):
     name: str
     type_value: Literal["bool", "int", "float"]
     default: Union[int, float, bool]
-    sampling_range: Dict[Literal["min", "max"], Union[int, float]]
+    value_range: Optional[Dict[Literal["min", "max"], Union[int, float]]]
+    non_default_ratio: Optional[Dict[Literal["min", "max"], float]]
 
-    # TODO check for matching types between type_value and default type
     # TODO add support for 'object' and 'enumerable' type_value
 
     @model_validator(mode="before")
     @classmethod
     def check_sampling_range(cls, data: Dict[str, Any]) -> Dict[str, Any]:
-        sampling_bounds = data.get("sampling_range", {})
-        default_type = data.get("default", None)
-        if "min" not in sampling_bounds or "max" not in sampling_bounds:
-            raise ValueError("Sampling range must contain 'min' and 'max' keys.")
-        if isinstance(default_type, bool):
-            for v in sampling_bounds.values():
-                if not 0.0 <= v <= 1.0:
-                    raise ValueError(
-                        "Fluent type with default type 'bool' must have sampling"
-                        "range values in [0.0, 1.0]"
-                    )
+        value_bounds = data.get("value_range", {})
+        if "min" not in value_bounds or "max" not in value_bounds:
+            raise ValueError("Value range must contain 'min' and 'max' keys.")
         return data
+
+    @field_validator("non_default_ratio")
+    def validate_non_default_ratio(
+        self, v: Optional[Dict[Literal["min", "max"], float]]
+    ) -> Optional[Dict[Literal["min", "max"], float]]:
+        if v is not None:
+            # TODO if non_default_ratio is defined, can the min and max value be None?
+            # If yes, should we return a default value or issue an error?
+            min_val = v.get("min", 0.0)
+            max_val = v.get("max", 1.0)
+
+            if not 0.0 <= min_val <= 1.0:
+                raise ValueError(f"Min value {min_val} must be in [0.0, 1.0].")
+            if not 0.0 <= max_val <= 1.0:
+                raise ValueError(f"Max value {max_val} must be in [0.0, 1.0].")
+            if min_val > max_val:
+                raise ValueError(
+                    f"Min value '{min_val}' must not be greater than max value '{max_val}'."
+                )
+
+        return v
+
+        # if isinstance(default_type, bool):
+        # for v in value_bounds.values():
+        #     if not 0.0 <= v <= 1.0:
+        #         raise ValueError(
+        #             "Fluent type with default type 'bool' must have value"
+        #             "range values in [0.0, 1.0]"
+        #         )
 
     @model_validator(mode="after")
     def ensure_matching_types(self) -> "Fluent":
         default_type = type(self.default)
 
-        for k, v in self.sampling_range.items():
-            if isinstance(self.default, bool):
-                if not isinstance(v, float):
-                    raise ValueError(
-                        "Fluent type with default type 'bool' must have sampling"
-                        "range values in [0.0, 1.0]"
-                    )
-            elif not isinstance(v, default_type):
+        if isinstance(self.default, bool):
+            if self.value_range is not None:
                 raise ValueError(
-                    f"Type of sampling_range value '{v}' for key '{k}' "
-                    f"does not match the type of default value '{self.default}' "
-                    f"(expected type: {default_type.__name__}, got: {type(v).__name__})"
+                    "Fluent with default type 'bool' must not have a 'value range'."
                 )
+
+        elif self.value_range is not None:
+            for k, v in self.value_range.items():
+                if not isinstance(v, default_type):
+                    raise ValueError(
+                        f"Type of value_range value '{v}' for key '{k}' "
+                        f"does not match the type of default value '{self.default}' "
+                        f"(expected type: {default_type.__name__}, got: {type(v).__name__})"
+                    )
+        else:
+            raise ValueError(
+                f"Fluent of default type {self.default} must define a 'value range'."
+            )
         return self
 
 
@@ -77,15 +104,6 @@ class Domain(BaseModel):
     non_fluents: List[NonFluent]
     state_fluents: List[StateFluent]
 
-    @computed_field
-    def domain_file_path(self) -> FilePath:
-        path = Path("domains", self.name, "domain.rddl")
-        assert path.exists(), f"'domain.rddl' file does not exist at {path}"
-        return path
-
-    def get_template_folder(self) -> FilePath:
-        return Path("domains", self.name, "data/templates")
-
     @classmethod
     def from_yaml(cls, file_path: DirectoryPath) -> "Domain":
         with open(file_path, "r", encoding="utf-8") as file:
@@ -94,3 +112,22 @@ class Domain(BaseModel):
                 return cls(**data)
             except yaml.YAMLError as e:
                 raise yaml.YAMLError(f"Error loading YAML file: {e}")
+
+    def to_yaml(self, file_path: Path) -> None:
+        """Serializes the domain to a YAML file."""
+        data = self.model_dump()
+
+        try:
+            with open(file_path, "w", encoding="utf-8") as file:
+                yaml.dump(data, file, default_flow_style=False, sort_keys=False)
+        except Exception as e:
+            raise IOError(f"Error writing YAML file: {e}") from e
+
+    @computed_field
+    def domain_file_path(self) -> FilePath:
+        path = Path("domains", self.name, "domain.rddl")
+        assert path.exists(), f"'domain.rddl' file does not exist at {path}"
+        return path
+
+    def get_template_folder(self) -> FilePath:
+        return Path("domains", self.name, "data/templates")
