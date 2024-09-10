@@ -67,7 +67,7 @@ class TestUngroundedInstanceTemplateData:
         domain_types: List[ObjectType],
     ):
         with pytest.raises(
-            ValidationError, match="String should have at least 3 character"
+            ValidationError, match="String should have at least 3 characters"
         ):
             UngroundedInstanceTemplateData(
                 identifier="id",
