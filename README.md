@@ -30,7 +30,7 @@ The `rddl-instance-generator` is built using [Poetry](https://python-poetry.org/
    cd rddl-instance-generator
    ```
 
-4. Spawns a shell activates the virtual environment:
+4. Spawns a shell and activates the virtual environment:
    ```
    poetry shell
    ```
