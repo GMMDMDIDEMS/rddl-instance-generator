@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "rddl-instance-generator"
 version = "0.1.0"
-description = ""
+description = "A command-line tool for generating RDDL instance files that enables flexible problem complexity by automatically creating multiple, customized problem instances for RDDL domains."
 authors = ["GMMDMDIDEMS"]
 readme = "README.md"
 
@@ -37,9 +37,6 @@ ipykernel = "^6.29.5"
 pytest = "^8.3.2"
 pytest-cov = "^5.0.0"
 mutmut = "^2.5.1"
-
-[tool.poetry.group.test.dependencies]
-memory-profiler = "^0.61.0"
 
 [build-system]
 requires = ["poetry-core"]
