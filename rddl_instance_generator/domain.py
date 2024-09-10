@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Dict, List, Literal, Optional, Union
+from typing import Dict, List, Literal, Optional, Union
 
 import yaml
 from pydantic import (
@@ -22,18 +22,10 @@ class Fluent(BaseModel):
     name: str
     type_value: Literal["bool", "int", "float"]
     default: Union[int, float, bool]
-    value_range: Optional[Dict[Literal["min", "max"], Union[int, float]]]
-    non_default_ratio: Optional[Dict[Literal["min", "max"], float]]
+    value_range: Optional[Dict[Literal["min", "max"], Union[int, float]]] = None
+    non_default_ratio: Optional[Dict[Literal["min", "max"], float]] = None
 
     # TODO add support for 'object' and 'enumerable' type_value
-
-    @model_validator(mode="before")
-    @classmethod
-    def check_sampling_range(cls, data: Dict[str, Any]) -> Dict[str, Any]:
-        value_bounds = data.get("value_range", {})
-        if "min" not in value_bounds or "max" not in value_bounds:
-            raise ValueError("Value range must contain 'min' and 'max' keys.")
-        return data
 
     @field_validator("non_default_ratio")
     def validate_non_default_ratio(
@@ -67,6 +59,11 @@ class Fluent(BaseModel):
                 )
 
         elif self.value_range is not None:
+            if (
+                "min" not in self.value_range.keys()
+                or "max" not in self.value_range.keys()
+            ):
+                raise ValueError("Value range must contain 'min' and 'max' keys.")
             for k, v in self.value_range.items():
                 if not isinstance(v, default_type):
                     raise ValueError(
