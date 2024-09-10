@@ -9,7 +9,6 @@ non-fluents nf_wildfire_mdp__5_5 {
 instance inst_wildfire_mdp__5_5 {
     domain = wildfire_mdp;
     non-fluents = nf_wildfire_mdp__5_5;
-    
     max-nondef-actions = 1;
     horizon = 40;
     discount = 1.0;

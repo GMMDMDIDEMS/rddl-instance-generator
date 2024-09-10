@@ -17,7 +17,7 @@ non-fluents nf_{{ domain_alias }}__{{ identifier }} {
 instance inst_{{ domain_alias }}__{{ identifier }} {
     domain = {{ domain_alias }};
     non-fluents = nf_{{ domain_alias }}__{{ identifier }};
-    {% if init_state -%}
+    {%- if init_state %}
     init-state {
         {%- for sf in init_state %}
         {{ sf }};
