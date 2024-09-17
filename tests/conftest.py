@@ -1,4 +1,6 @@
+from pathlib import Path
 from typing import List
+from unittest.mock import MagicMock, PropertyMock, patch
 from pydantic import FilePath
 import pytest
 from rddl_instance_generator.domain import Domain, NonFluent, ObjectType, StateFluent
@@ -22,7 +24,7 @@ def domain_types() -> List[ObjectType]:
 
 
 @pytest.fixture(scope="session")
-def domain(domain_types: List[ObjectType]):
+def mock_domain(domain_types: List[ObjectType]):
     object_types = domain_types
 
     non_fluents = [
@@ -30,7 +32,7 @@ def domain(domain_types: List[ObjectType]):
             name="non_fluent",
             type_value="float",
             default=20.0,
-            sampling_range={"min": 20.0, "max": 20.0},
+            value_range={"min": 20.0, "max": 20.0},
         )
     ]
 
@@ -39,7 +41,7 @@ def domain(domain_types: List[ObjectType]):
             name="state_fluent",
             type_value="bool",
             default=False,
-            sampling_range={"min": 0.3, "max": 0.7},
+            non_default_ratio={"min": 0.3, "max": 0.7},
         )
     ]
 
@@ -77,5 +79,6 @@ def instance(
 
 
 @pytest.fixture(scope="session")
-def instance_generator(domain: Domain):
-    return InstanceGenerator(domain=domain, num_instances=1, size=2, seed=42)
+def instance_generator(mock_domain: Domain):
+    # with patch("rddl_instance_generator.instance.Path.mkdir"):
+    return InstanceGenerator(domain=mock_domain, num_instances=1, size=2)
