@@ -1,21 +1,41 @@
 from pathlib import Path
-from typing import Dict, List, Literal, Optional, Union
+from typing import Dict, List, Literal, Optional, Tuple, Union
 
 import yaml
 from pydantic import (
     BaseModel,
     DirectoryPath,
+    Field,
     FilePath,
     computed_field,
     field_validator,
     model_validator,
 )
+from pyRDDLGym.core.compiler.model import RDDLLiftedModel
+
+from rddl_instance_generator.helper.helper import find_shortest_unique_prefix
+
+DOMAINS_PATHS = Path("data")
 
 
 class ObjectType(BaseModel):
     name: str
     kind: Literal["object"]
     alias: str
+
+    @classmethod
+    def from_lifted_model(cls, model: RDDLLiftedModel) -> List["ObjectType"]:
+        object_types: List[ObjectType] = []
+
+        objects: List[str] = list(model.type_to_objects.keys())
+        obj_aliases = find_shortest_unique_prefix(objects)
+
+        for obj in objects:
+            object_types.append(
+                ObjectType(name=obj, kind="object", alias=obj_aliases[obj])
+            )
+
+        return object_types
 
 
 class Fluent(BaseModel):
@@ -28,8 +48,9 @@ class Fluent(BaseModel):
     # TODO add support for 'object' and 'enumerable' type_value
 
     @field_validator("non_default_ratio")
+    @classmethod
     def validate_non_default_ratio(
-        self, v: Optional[Dict[Literal["min", "max"], float]]
+        cls, v: Optional[Dict[Literal["min", "max"], float]]
     ) -> Optional[Dict[Literal["min", "max"], float]]:
         if v is not None:
             # TODO if non_default_ratio is defined, can the min and max value be None?
@@ -77,13 +98,65 @@ class Fluent(BaseModel):
             )
         return self
 
+    @classmethod
+    def from_lifted_model(
+        cls, model: RDDLLiftedModel
+    ) -> Tuple[List["NonFluent"], List["StateFluent"]]:
+        non_fluents: List[NonFluent] = []
+        state_fluents: List[StateFluent] = []
+
+        for i, fluents in enumerate([model.non_fluents, model.state_fluents]):
+            for var in fluents:
+                # set default value of optional attrs
+                value_range = None
+                non_default_ratio = None
+
+                var_range = model.variable_ranges[var]
+                type_value = "float" if var_range == "real" else str(var_range)
+
+                default = model.variable_defaults[var]
+
+                if not isinstance(default, bool):
+                    value_range = {"min": default, "max": default}
+
+                # check whether fluent is parameterizable
+                if model.variable_params[var] != []:
+                    non_default_ratio = {"min": 0.5, "max": 0.5}
+
+                fluent = cls(
+                    name=var,
+                    type_value=type_value,
+                    default=default,
+                    value_range=value_range,
+                    non_default_ratio=non_default_ratio,
+                )
+
+                # must be non-fluent
+                if i == 0:
+                    non_fluents.append(
+                        NonFluent(
+                            **fluent.model_dump(),
+                            type_fluent="non_fluent",
+                        )
+                    )
+
+                else:
+                    state_fluents.append(
+                        StateFluent(
+                            **fluent.model_dump(),
+                            type_fluent="state_fluent",
+                        )
+                    )
+
+        return (non_fluents, state_fluents)
+
 
 class NonFluent(Fluent):
-    type_fluent: Literal["non_fluent"] = "non_fluent"
+    _type_fluent: Literal["non_fluent"] = "non_fluent"
 
 
 class StateFluent(Fluent):
-    type_fluent: Literal["state_fluent"] = "state_fluent"
+    _type_fluent: Literal["state_fluent"] = "state_fluent"
 
 
 class Domain(BaseModel):
@@ -102,9 +175,24 @@ class Domain(BaseModel):
             except yaml.YAMLError as e:
                 raise yaml.YAMLError(f"Error loading YAML file: {e}")
 
+    @classmethod
+    def from_lifted_model(cls, name: str, model: RDDLLiftedModel) -> "Domain":
+        non_fluents, state_fluents = Fluent.from_lifted_model(model=model)
+
+        return cls(
+            name=name,
+            domain_alias=model.domain_name,
+            types=ObjectType.from_lifted_model(model=model),
+            non_fluents=non_fluents,
+            state_fluents=state_fluents,
+        )
+
     def to_yaml(self, file_path: Path) -> None:
         """Serializes the domain to a YAML file."""
-        data = self.model_dump()
+        data = self.model_dump(
+            exclude={"domain_file_path"},
+            exclude_none=True,
+        )
 
         try:
             with open(file_path, "w", encoding="utf-8") as file:
@@ -114,7 +202,7 @@ class Domain(BaseModel):
 
     @computed_field
     def domain_file_path(self) -> FilePath:
-        path = Path("domains", self.name, "domain.rddl")
+        path = DOMAINS_PATHS / self.name / "domain.rddl"
         assert path.exists(), f"'domain.rddl' file does not exist at {path}"
         return path
 
