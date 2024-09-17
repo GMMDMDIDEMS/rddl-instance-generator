@@ -11,7 +11,7 @@ from rddl_instance_generator.domain import Domain
 from rddl_instance_generator.instance import InstanceGenerator
 from rddl_instance_generator.rddl import RDDL
 
-DOMAIN_PATH = Path("domains")
+DOMAINS_PATH = Path("data")
 
 app = typer.Typer()
 console = Console()
@@ -40,7 +40,7 @@ def load_config(file_path: Path):
 def domain_callback(value: str):
     supported_domains = [
         str(domain.name)
-        for domain in DOMAIN_PATH.iterdir()
+        for domain in DOMAINS_PATH.iterdir()
         if not domain.name.startswith(".")
     ]
     if value not in supported_domains:
