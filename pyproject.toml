@@ -7,6 +7,7 @@ readme = "README.md"
 
 [tool.poetry.scripts]
 rddl-instance-generator = "rddl_instance_generator.main:app"
+domain-importer = "rddl_instance_generator.helper.importer:app"
 
 [tool.poetry.dependencies]
 python = "^3.10,<3.13"
