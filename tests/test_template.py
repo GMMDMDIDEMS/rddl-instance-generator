@@ -3,7 +3,7 @@ from typing import List
 from pydantic import ValidationError
 import pytest
 from rddl_instance_generator.domain import ObjectType
-from rddl_instance_generator.helper.templater import UngroundedInstanceTemplateData
+from rddl_instance_generator.utils.templater import UngroundedInstanceTemplateData
 
 
 class TestUngroundedInstanceTemplateData:

@@ -1,7 +1,7 @@
 import pytest
 from jinja2 import Template
 
-from rddl_instance_generator.helper.templater import get_instance_template
+from rddl_instance_generator.utils.templater import get_instance_template
 
 
 def test_get_instance_template():

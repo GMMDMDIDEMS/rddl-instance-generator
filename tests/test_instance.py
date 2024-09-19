@@ -1,7 +1,7 @@
 from pathlib import Path
 from pydantic import FilePath, ValidationError
 import pytest
-from rddl_instance_generator.helper.templater import UngroundedInstanceTemplateData
+from rddl_instance_generator.utils.templater import UngroundedInstanceTemplateData
 from rddl_instance_generator.instance import Instance
 
 
