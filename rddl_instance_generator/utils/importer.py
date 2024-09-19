@@ -1,18 +1,24 @@
-from pathlib import Path
+import logging
 import re
 import shutil
 import tempfile
+from pathlib import Path
 from typing import Annotated, Dict, List, Union
 
+from termcolor import colored
 import typer
-
 from jinja2 import Template
-from pyRDDLGym.core.parser.reader import RDDLReader
-from pyRDDLGym.core.parser.parser import RDDLParser
 from pyRDDLGym.core.compiler.model import RDDLLiftedModel
+from pyRDDLGym.core.parser.parser import RDDLParser
+from pyRDDLGym.core.parser.reader import RDDLReader
+from rddlrepository.core.manager import RDDLRepoManager, ProblemInfo
 
 from rddl_instance_generator.domain import Domain
-from rddl_instance_generator.helper.templater import get_instance_template
+from rddl_instance_generator.utils.templater import get_instance_template
+from rddl_instance_generator.utils.logger import setup_logger
+
+
+config_logger = setup_logger("config", Path("logs/config.log"), logging.DEBUG)
 
 DOMAINS_PATH = Path("data")
 
@@ -113,6 +119,11 @@ def domain_file_callback(value: Union[str, Path]) -> Path:
             f"'{file_path}' does not exist. Please provide a valid file path."
         )
 
+    if not file_path.is_file():
+        raise typer.BadParameter(
+            f"'{file_path}' is not a file. Please provide a valid file path."
+        )
+
     return file_path
 
 
@@ -127,28 +138,20 @@ def import_domain(
             help="Name of the domain and the corresponding folder.",
         ),
     ],
-    domain_file: Annotated[
-        str,
-        typer.Option(
-            "--domain-file-path",
-            "-fp",
-            callback=domain_file_callback,
-            help="Path of the respective domain.rddl file.",
-        ),
-    ],
+    domain_file: Path = typer.Option(
+        "--domain-file-path",
+        "-fp",
+        callback=domain_file_callback,
+        help="Path of the respective domain.rddl file.",
+    ),
 ):
     domain_path = DOMAINS_PATH / f"{domain_name}"
-    domain_file_path = Path(
-        domain_file
-    )  # is already Path object due to 'domain_file_callback'. However, otherwise Pylance throws type error.
 
     # copy domain.rddl file to destination folder
-    shutil.copy(domain_file_path, domain_path / "domain.rddl")
+    shutil.copy(domain_file, domain_path / "domain.rddl")
 
-    types = parse_domain_file(domain_path=domain_file_path)
-    lifted_model = write_minimal_instance(
-        domain_file_path=domain_file_path, types=types
-    )
+    types = parse_domain_file(domain_path=domain_file)
+    lifted_model = write_minimal_instance(domain_file_path=domain_file, types=types)
 
     domain = Domain.from_lifted_model(name=domain_name, model=lifted_model)
 
@@ -156,5 +159,37 @@ def import_domain(
     domain.to_yaml(file_path=config_file_path)
 
 
+def import_rddlrepository() -> None:
+    """
+    Import all domains and respective instance files from the `rddlrepository`.
+    Iterates over all domains by context (standalone or from a competition) to
+    create the respective config.toml and data folder structure.
+    """
+    config_logger.debug("Start importing from rddlrepository")
+    print(colored("Start importing from rddlrepository...", "green", attrs=["bold"]))
+    domain_manager = RDDLRepoManager(rebuild=True)
+    contexts = domain_manager.list_contexts()
+    print("contexts: ", contexts)
+    # Iterate over domains by context
+    for context in contexts:
+        domains = domain_manager.list_problems_by_context(context)
+        print(context, domains)
+        for domain_name in domains:
+            domain = domain_manager.get_problem(domain_name)
+            domain_path = Path(domain.get_domain())
+            instance = domain.list_instances()[0]
+            # print(instance)
+            instance_path = Path(domain.get_instance(instance))
+            try:
+                lifted_model = get_lifted_model(domain_path, instance_path)
+                print(lifted_model.domain_name)
+                print(lifted_model.observ_fluents)
+                print(lifted_model.interm_fluents)
+                print(domain_path.parent.name)
+            except Exception as e:
+                pass
+
+
 if __name__ == "__main__":
-    app()
+    # app()
+    import_rddlrepository()
