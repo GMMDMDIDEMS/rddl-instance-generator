@@ -1,10 +1,8 @@
-from pathlib import Path
 from typing import List
-from unittest.mock import MagicMock, PropertyMock, patch
 from pydantic import FilePath
 import pytest
 from rddl_instance_generator.domain import Domain, NonFluent, ObjectType, StateFluent
-from rddl_instance_generator.helper.templater import UngroundedInstanceTemplateData
+from rddl_instance_generator.utils.templater import UngroundedInstanceTemplateData
 from rddl_instance_generator.instance import Instance, InstanceGenerator
 
 
