@@ -1240,13 +1240,13 @@ xmp = ["defusedxml"]
 
 [[package]]
 name = "platformdirs"
-version = "4.3.5"
+version = "4.3.6"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a `user data dir`."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "platformdirs-4.3.5-py3-none-any.whl", hash = "sha256:00d4e6d17a9a452c95182c20862bb655c8dc51122e2a3afbc0bc7cfb7538b263"},
-    {file = "platformdirs-4.3.5.tar.gz", hash = "sha256:227a0d45c85fc7a4a2147af40dab1ee3657f4b92e725e2cbc707949bfab78be3"},
+    {file = "platformdirs-4.3.6-py3-none-any.whl", hash = "sha256:73e575e1408ab8103900836b97580d5307456908a03e92031bab39e4554cc3fb"},
+    {file = "platformdirs-4.3.6.tar.gz", hash = "sha256:357fb2acbc885b0419afd3ce3ed34564c13c9b95c89360cd9563f73aa5e2b907"},
 ]
 
 [package.extras]
@@ -1891,6 +1891,24 @@ files = [
 cffi = {version = "*", markers = "implementation_name == \"pypy\""}
 
 [[package]]
+name = "rddlrepository"
+version = "2.0"
+description = "Home for all things RDDL"
+optional = false
+python-versions = ">=3.8"
+files = []
+develop = false
+
+[package.dependencies]
+numpy = "*"
+
+[package.source]
+type = "git"
+url = "git@github.com:pyrddlgym-project/rddlrepository.git"
+reference = "HEAD"
+resolved_reference = "ba7d7cac69d322170323f1a51945486919cf077f"
+
+[[package]]
 name = "rich"
 version = "13.8.1"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
@@ -2062,4 +2080,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10,<3.13"
-content-hash = "73a8f8ad8d2707e3be664c6de5a39aadbb2b90762539e456faa6de422941d962"
+content-hash = "2cc94ca8190a846cb3c18842aed84ee5f3a7239219ad28bc77a5ca51ad21ce2e"

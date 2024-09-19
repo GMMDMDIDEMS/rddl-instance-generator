@@ -39,6 +39,9 @@ pytest = "^8.3.2"
 pytest-cov = "^5.0.0"
 mutmut = "^2.5.1"
 
+[tool.poetry.group.extras.dependencies]
+rddlrepository = { git = "git@github.com:pyrddlgym-project/rddlrepository.git" }
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
