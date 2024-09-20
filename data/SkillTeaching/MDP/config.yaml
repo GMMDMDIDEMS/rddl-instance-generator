@@ -1,0 +1,113 @@
+name: SkillTeaching_MDP
+domain_alias: skill_teaching_mdp
+types:
+- name: skill
+  kind: object
+  alias: s
+non_fluents:
+- name: SKILL_WEIGHT
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PRE_REQ
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PROB_ALL_PRE
+  type_value: float
+  default: 0.8
+  value_range:
+    min: 0.8
+    max: 0.8
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PROB_PER_PRE
+  type_value: float
+  default: 0.1
+  value_range:
+    min: 0.1
+    max: 0.1
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PROB_ALL_PRE_MED
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PROB_PER_PRE_MED
+  type_value: float
+  default: 0.3
+  value_range:
+    min: 0.3
+    max: 0.3
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PROB_HIGH
+  type_value: float
+  default: 0.9
+  value_range:
+    min: 0.9
+    max: 0.9
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: LOSE_PROB
+  type_value: float
+  default: 0.02
+  value_range:
+    min: 0.02
+    max: 0.02
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: proficiencyMed
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: proficiencyHigh
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: updateTurn
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: answeredRight
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: hintedRight
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: hintDelayVar
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

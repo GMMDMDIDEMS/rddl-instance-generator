@@ -1,0 +1,80 @@
+name: Pong
+domain_alias: pong_mdp
+types:
+- name: ball
+  kind: object
+  alias: b
+non_fluents:
+- name: NOISE-X
+  type_value: float
+  default: 0.01
+  value_range:
+    min: 0.01
+    max: 0.01
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: NOISE-Y
+  type_value: float
+  default: 0.03
+  value_range:
+    min: 0.03
+    max: 0.03
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PADDLE-H
+  type_value: float
+  default: 0.2
+  value_range:
+    min: 0.2
+    max: 0.2
+- name: PADDLE-MAX-STEP
+  type_value: float
+  default: 0.04
+  value_range:
+    min: 0.04
+    max: 0.04
+state_fluents:
+- name: ball-x
+  type_value: float
+  default: 0.5
+  value_range:
+    min: 0.5
+    max: 0.5
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: ball-y
+  type_value: float
+  default: 0.5
+  value_range:
+    min: 0.5
+    max: 0.5
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: vel-x
+  type_value: float
+  default: 0.03
+  value_range:
+    min: 0.03
+    max: 0.03
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: vel-y
+  type_value: float
+  default: 0.01
+  value_range:
+    min: 0.01
+    max: 0.01
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: paddle-y
+  type_value: float
+  default: 0.4
+  value_range:
+    min: 0.4
+    max: 0.4

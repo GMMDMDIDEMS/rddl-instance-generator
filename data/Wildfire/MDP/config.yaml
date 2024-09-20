@@ -1,0 +1,59 @@
+name: Wildfire_MDP
+domain_alias: wildfire_mdp
+types:
+- name: x_pos
+  kind: object
+  alias: x
+- name: y_pos
+  kind: object
+  alias: y
+non_fluents:
+- name: COST_CUTOUT
+  type_value: float
+  default: -5.0
+  value_range:
+    min: -5.0
+    max: -5.0
+- name: COST_PUTOUT
+  type_value: float
+  default: -10.0
+  value_range:
+    min: -10.0
+    max: -10.0
+- name: PENALTY_TARGET_BURN
+  type_value: float
+  default: -100.0
+  value_range:
+    min: -100.0
+    max: -100.0
+- name: PENALTY_NONTARGET_BURN
+  type_value: float
+  default: -5.0
+  value_range:
+    min: -5.0
+    max: -5.0
+- name: NEIGHBOR
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: TARGET
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: burning
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: out-of-fuel
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

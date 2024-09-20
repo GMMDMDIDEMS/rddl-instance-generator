@@ -1,0 +1,152 @@
+name: HVAC
+domain_alias: hvac
+types:
+- name: zone
+  kind: object
+  alias: z
+- name: heater
+  kind: object
+  alias: h
+non_fluents:
+- name: ADJ-ZONES
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: TEMP-OUT
+  type_value: float
+  default: 3.0
+  value_range:
+    min: 3.0
+    max: 3.0
+- name: ADJ-HEATER
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: AIR-COST
+  type_value: float
+  default: 0.05
+  value_range:
+    min: 0.05
+    max: 0.05
+- name: HEAT-COST
+  type_value: float
+  default: 5.0
+  value_range:
+    min: 5.0
+    max: 5.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: ZONE-DISCOMFORT-PENALTY
+  type_value: float
+  default: 20.0
+  value_range:
+    min: 20.0
+    max: 20.0
+- name: TEMP-ZONE-MIN
+  type_value: float
+  default: 10.0
+  value_range:
+    min: 10.0
+    max: 10.0
+- name: TEMP-ZONE-MAX
+  type_value: float
+  default: 15.0
+  value_range:
+    min: 15.0
+    max: 15.0
+- name: OUT-AIR-FLOW
+  type_value: float
+  default: 0.05
+  value_range:
+    min: 0.05
+    max: 0.05
+- name: ZONE-VOL
+  type_value: float
+  default: 255.0
+  value_range:
+    min: 255.0
+    max: 255.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: HEATER-VOL
+  type_value: float
+  default: 25.5
+  value_range:
+    min: 25.5
+    max: 25.5
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: K
+  type_value: float
+  default: 1195.95
+  value_range:
+    min: 1195.95
+    max: 1195.95
+- name: K-dz
+  type_value: float
+  default: 0.001
+  value_range:
+    min: 0.001
+    max: 0.001
+- name: K-dh
+  type_value: float
+  default: 0.003
+  value_range:
+    min: 0.003
+    max: 0.003
+- name: DELTA-T
+  type_value: float
+  default: 0.1
+  value_range:
+    min: 0.1
+    max: 0.1
+- name: SIGMA
+  type_value: float
+  default: 0.1
+  value_range:
+    min: 0.1
+    max: 0.1
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: P-SWITCH
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: temp-zone
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: temp-heater
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: occupied
+  type_value: bool
+  default: true
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

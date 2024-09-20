@@ -1,0 +1,95 @@
+name: RecSim
+domain_alias: recsim_ecosystem_welfare
+types:
+- name: feature
+  kind: object
+  alias: f
+- name: item
+  kind: object
+  alias: i
+- name: consumer
+  kind: object
+  alias: c
+- name: provider
+  kind: object
+  alias: p
+non_fluents:
+- name: MAX-AFFINITY
+  type_value: float
+  default: 10.0
+  value_range:
+    min: 10.0
+    max: 10.0
+- name: PROVIDER-COMPETENCE
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PROVIDER-DISCOUNT
+  type_value: float
+  default: 0.5
+  value_range:
+    min: 0.5
+    max: 0.5
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: CONSUMER-AFFINITY
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: LESS
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: NEXT-PROVIDER
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: provider-satisfaction
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: consumer-satisfaction
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: item-feature
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: item-by
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

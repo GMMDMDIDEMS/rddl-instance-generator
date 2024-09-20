@@ -1,0 +1,77 @@
+name: Knapsack
+domain_alias: multi_knapsack
+types:
+- name: item
+  kind: object
+  alias: i
+- name: knapsack
+  kind: object
+  alias: k
+non_fluents:
+- name: ITEM-WEIGHT
+  type_value: int
+  default: 1
+  value_range:
+    min: 1
+    max: 1
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: ITEM-VALUE
+  type_value: int
+  default: 1
+  value_range:
+    min: 1
+    max: 1
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: ITEM-PROB
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: CAPACITY
+  type_value: int
+  default: 20
+  value_range:
+    min: 20
+    max: 20
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: total-weight
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: total-value
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: current-weight
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+- name: current-value
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0

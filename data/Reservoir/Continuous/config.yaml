@@ -1,0 +1,98 @@
+name: Reservoir_Continuous
+domain_alias: reservoir_control_cont
+types:
+- name: reservoir
+  kind: object
+  alias: r
+non_fluents:
+- name: TOP_RES
+  type_value: float
+  default: 100.0
+  value_range:
+    min: 100.0
+    max: 100.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: MAX_LEVEL
+  type_value: float
+  default: 80.0
+  value_range:
+    min: 80.0
+    max: 80.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: MIN_LEVEL
+  type_value: float
+  default: 20.0
+  value_range:
+    min: 20.0
+    max: 20.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: RAIN_VAR
+  type_value: float
+  default: 5.0
+  value_range:
+    min: 5.0
+    max: 5.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: RES_CONNECT
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: EVAPORATION_FACTOR
+  type_value: float
+  default: 0.05
+  value_range:
+    min: 0.05
+    max: 0.05
+- name: CONNECTED_TO_SEA
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: LOW_COST
+  type_value: float
+  default: -5.0
+  value_range:
+    min: -5.0
+    max: -5.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: HIGH_COST
+  type_value: float
+  default: -10.0
+  value_range:
+    min: -10.0
+    max: -10.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: OVERFLOW_COST
+  type_value: float
+  default: -15.0
+  value_range:
+    min: -15.0
+    max: -15.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: rlevel
+  type_value: float
+  default: 50.0
+  value_range:
+    min: 50.0
+    max: 50.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

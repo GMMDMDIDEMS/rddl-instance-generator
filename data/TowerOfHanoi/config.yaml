@@ -1,0 +1,41 @@
+name: TowerOfHanoi
+domain_alias: tower_of_hanoi
+types:
+- name: rod
+  kind: object
+  alias: r
+- name: disk
+  kind: object
+  alias: d
+non_fluents:
+- name: SIZE
+  type_value: int
+  default: 1
+  value_range:
+    min: 1
+    max: 1
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: TARGET
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: disk-on-rod
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: disk-order
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

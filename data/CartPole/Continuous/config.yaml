@@ -1,0 +1,77 @@
+name: CartPole_Continuous
+domain_alias: cart_pole_continuous
+types: []
+non_fluents:
+- name: GRAVITY
+  type_value: float
+  default: 9.8
+  value_range:
+    min: 9.8
+    max: 9.8
+- name: FORCE-MAX
+  type_value: float
+  default: 10.0
+  value_range:
+    min: 10.0
+    max: 10.0
+- name: CART-MASS
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+- name: POLE-MASS
+  type_value: float
+  default: 0.1
+  value_range:
+    min: 0.1
+    max: 0.1
+- name: POLE-LEN
+  type_value: float
+  default: 0.5
+  value_range:
+    min: 0.5
+    max: 0.5
+- name: TIME-STEP
+  type_value: float
+  default: 0.02
+  value_range:
+    min: 0.02
+    max: 0.02
+- name: POS-LIMIT
+  type_value: float
+  default: 2.4
+  value_range:
+    min: 2.4
+    max: 2.4
+- name: ANG-LIMIT
+  type_value: float
+  default: 0.2094395
+  value_range:
+    min: 0.2094395
+    max: 0.2094395
+state_fluents:
+- name: pos
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+- name: ang-pos
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+- name: vel
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+- name: ang-vel
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0

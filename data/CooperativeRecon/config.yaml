@@ -1,0 +1,179 @@
+name: CooperativeRecon
+domain_alias: cooperative-recon_mdp
+types:
+- name: xpos
+  kind: object
+  alias: x
+- name: ypos
+  kind: object
+  alias: y
+- name: object-of-interest
+  kind: object
+  alias: o
+- name: agent
+  kind: object
+  alias: a
+- name: tool
+  kind: object
+  alias: t
+non_fluents:
+- name: ADJACENT_UP
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: ADJACENT_DOWN
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: ADJACENT_RIGHT
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: ADJACENT_LEFT
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: OBJECT_AT
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: DAMAGE_PROB
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: DETECT_PROB
+  type_value: float
+  default: 0.6
+  value_range:
+    min: 0.6
+    max: 0.6
+- name: DETECT_PROB_DAMAGED
+  type_value: float
+  default: 0.3
+  value_range:
+    min: 0.3
+    max: 0.3
+- name: DETECT_PROB_WITH_SUPPORT
+  type_value: float
+  default: 0.8
+  value_range:
+    min: 0.8
+    max: 0.8
+- name: DETECT_PROB_DAMAGED_WITH_SUPPORT
+  type_value: float
+  default: 0.5
+  value_range:
+    min: 0.5
+    max: 0.5
+- name: CAMERA_TOOL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: LIFE_TOOL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: WATER_TOOL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: HAS_TOOL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: BASE
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: GOOD_PIC_REWARD
+  type_value: float
+  default: 10.0
+  value_range:
+    min: 10.0
+    max: 10.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: BAD_PIC_REWARD
+  type_value: float
+  default: 5.0
+  value_range:
+    min: 5.0
+    max: 5.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: damaged
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: waterChecked
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: waterDetected
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: lifeChecked
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: lifeChecked2
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: lifeDetected
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: pictureTaken
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: agent-at
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

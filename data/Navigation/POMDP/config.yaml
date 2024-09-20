@@ -1,0 +1,89 @@
+name: Navigation_POMDP
+domain_alias: navigation_pomdp
+types:
+- name: xpos
+  kind: object
+  alias: x
+- name: ypos
+  kind: object
+  alias: y
+non_fluents:
+- name: NORTH
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: SOUTH
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: EAST
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: WEST
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: MIN-XPOS
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: MAX-XPOS
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: MIN-YPOS
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: MAX-YPOS
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: P
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: GOAL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: first-step
+  type_value: bool
+  default: false
+- name: second-step
+  type_value: bool
+  default: false
+- name: min-x
+  type_value: bool
+  default: false
+- name: robot-at
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

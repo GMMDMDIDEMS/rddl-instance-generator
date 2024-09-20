@@ -1,0 +1,59 @@
+name: Pendulum
+domain_alias: pendulum
+types: []
+non_fluents:
+- name: PI
+  type_value: float
+  default: 3.14159265
+  value_range:
+    min: 3.14159265
+    max: 3.14159265
+- name: GRAVITY
+  type_value: float
+  default: 9.8
+  value_range:
+    min: 9.8
+    max: 9.8
+- name: SPEED-MAX
+  type_value: float
+  default: 8.0
+  value_range:
+    min: 8.0
+    max: 8.0
+- name: TORQUE-MAX
+  type_value: float
+  default: 2.0
+  value_range:
+    min: 2.0
+    max: 2.0
+- name: DT
+  type_value: float
+  default: 0.05
+  value_range:
+    min: 0.05
+    max: 0.05
+- name: MASS
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+- name: LENGTH
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+state_fluents:
+- name: theta
+  type_value: float
+  default: 3.14159265
+  value_range:
+    min: 3.14159265
+    max: 3.14159265
+- name: theta-dot
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0

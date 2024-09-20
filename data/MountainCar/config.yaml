@@ -1,0 +1,110 @@
+name: MountainCar
+domain_alias: mountain_car
+types:
+- name: segment
+  kind: object
+  alias: s
+non_fluents:
+- name: GRAVITY-MAG
+  type_value: float
+  default: 0.0025
+  value_range:
+    min: 0.0025
+    max: 0.0025
+- name: FORCE-MAG
+  type_value: float
+  default: 0.0015
+  value_range:
+    min: 0.0015
+    max: 0.0015
+- name: X-START
+  type_value: float
+  default: -1.2
+  value_range:
+    min: -1.2
+    max: -1.2
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: Y-START
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: X-END
+  type_value: float
+  default: 0.6
+  value_range:
+    min: 0.6
+    max: 0.6
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: Y-END
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: MIN-POS
+  type_value: float
+  default: -1.2
+  value_range:
+    min: -1.2
+    max: -1.2
+- name: MAX-POS
+  type_value: float
+  default: 0.6
+  value_range:
+    min: 0.6
+    max: 0.6
+- name: MAX-VEL
+  type_value: float
+  default: 0.07
+  value_range:
+    min: 0.07
+    max: 0.07
+- name: GOAL-MIN
+  type_value: float
+  default: 0.5
+  value_range:
+    min: 0.5
+    max: 0.5
+- name: VEL-MIN
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+- name: GOAL-REWARD
+  type_value: float
+  default: 100.0
+  value_range:
+    min: 100.0
+    max: 100.0
+- name: ACTION-PENALTY
+  type_value: float
+  default: 0.1
+  value_range:
+    min: 0.1
+    max: 0.1
+state_fluents:
+- name: pos
+  type_value: float
+  default: -0.5
+  value_range:
+    min: -0.5
+    max: -0.5
+- name: vel
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0

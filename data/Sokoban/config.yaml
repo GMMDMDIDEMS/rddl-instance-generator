@@ -1,0 +1,74 @@
+name: Sokoban
+domain_alias: sokoban
+types:
+- name: x-pos
+  kind: object
+  alias: x
+- name: y-pos
+  kind: object
+  alias: y
+- name: dir
+  kind: object
+  alias: d
+non_fluents:
+- name: WALL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: STORAGE
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: IX
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: IY
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: COMPLETION
+  type_value: float
+  default: 10.0
+  value_range:
+    min: 10.0
+    max: 10.0
+- name: STEP-PENALTY
+  type_value: float
+  default: 0.1
+  value_range:
+    min: 0.1
+    max: 0.1
+- name: BONUS-STORED
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+state_fluents:
+- name: box
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: man
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

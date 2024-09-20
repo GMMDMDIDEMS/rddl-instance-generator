@@ -1,0 +1,32 @@
+name: SysAdmin_MDP
+domain_alias: sysadmin_mdp
+types:
+- name: computer
+  kind: object
+  alias: c
+non_fluents:
+- name: REBOOT-PROB
+  type_value: float
+  default: 0.1
+  value_range:
+    min: 0.1
+    max: 0.1
+- name: REBOOT-PENALTY
+  type_value: float
+  default: 0.75
+  value_range:
+    min: 0.75
+    max: 0.75
+- name: CONNECTED
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: running
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

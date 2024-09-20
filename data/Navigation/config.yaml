@@ -1,0 +1,74 @@
+name: Navigation
+domain_alias: Navigation
+types:
+- name: obstacle
+  kind: object
+  alias: o
+non_fluents:
+- name: GOAL-X
+  type_value: float
+  default: 8.0
+  value_range:
+    min: 8.0
+    max: 8.0
+- name: GOAL-Y
+  type_value: float
+  default: 8.0
+  value_range:
+    min: 8.0
+    max: 8.0
+- name: CENTER-X
+  type_value: float
+  default: 5.0
+  value_range:
+    min: 5.0
+    max: 5.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: CENTER-Y
+  type_value: float
+  default: 5.0
+  value_range:
+    min: 5.0
+    max: 5.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: MIN-X
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+- name: MAX-X
+  type_value: float
+  default: 10.0
+  value_range:
+    min: 10.0
+    max: 10.0
+- name: MIN-Y
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+- name: MAX-Y
+  type_value: float
+  default: 10.0
+  value_range:
+    min: 10.0
+    max: 10.0
+state_fluents:
+- name: x
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+- name: y
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0

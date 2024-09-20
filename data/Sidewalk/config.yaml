@@ -1,0 +1,44 @@
+name: Sidewalk
+domain_alias: sidewalk
+types:
+- name: person
+  kind: object
+  alias: p
+- name: direction
+  kind: object
+  alias: d
+non_fluents:
+- name: SIDEWALK-SIZE
+  type_value: int
+  default: 3
+  value_range:
+    min: 3
+    max: 3
+- name: GOAL
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: xPos
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: yPos
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

@@ -1,0 +1,32 @@
+name: GameOfLife_MDP
+domain_alias: game_of_life_mdp
+types:
+- name: x_pos
+  kind: object
+  alias: x
+- name: y_pos
+  kind: object
+  alias: y
+non_fluents:
+- name: NOISE-PROB
+  type_value: float
+  default: 0.1
+  value_range:
+    min: 0.1
+    max: 0.1
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: NEIGHBOR
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: alive
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

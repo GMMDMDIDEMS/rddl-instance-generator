@@ -1,0 +1,83 @@
+name: Pizza
+domain_alias: pizza
+types:
+- name: location
+  kind: object
+  alias: l
+- name: truck
+  kind: object
+  alias: t
+- name: pizza
+  kind: object
+  alias: p
+non_fluents:
+- name: CAPACITY
+  type_value: int
+  default: 3
+  value_range:
+    min: 3
+    max: 3
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: ORDERS
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: CONNECTED
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: DRIVEPROB
+  type_value: float
+  default: 0.9
+  value_range:
+    min: 0.9
+    max: 0.9
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: SHOP
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: truckAt
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: delivered
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: pizzaInTruck
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: hot
+  type_value: bool
+  default: true
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: disposed
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

@@ -1,0 +1,191 @@
+name: CooperativeRecon_POMDP
+domain_alias: recon_pomdp
+types:
+- name: x_pos
+  kind: object
+  alias: x
+- name: y_pos
+  kind: object
+  alias: y
+- name: obj
+  kind: object
+  alias: o
+- name: agent
+  kind: object
+  alias: a
+- name: tool
+  kind: object
+  alias: t
+non_fluents:
+- name: ADJACENT-UP
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: ADJACENT-DOWN
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: ADJACENT-RIGHT
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: ADJACENT-LEFT
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: objAt
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: LIFE_PROB
+  type_value: float
+  default: 0.2
+  value_range:
+    min: 0.2
+    max: 0.2
+- name: WATER_PROB
+  type_value: float
+  default: 0.8
+  value_range:
+    min: 0.8
+    max: 0.8
+- name: HAZARD
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: DAMAGE_PROB
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: DETECT_PROB
+  type_value: float
+  default: 0.8
+  value_range:
+    min: 0.8
+    max: 0.8
+- name: DETECT_PROB_DAMAGED
+  type_value: float
+  default: 0.4
+  value_range:
+    min: 0.4
+    max: 0.4
+- name: CAMERA_TOOL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: LIFE_TOOL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: WATER_TOOL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: BASE
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: GOOD_PIC_WEIGHT
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+- name: BAD_PIC_WEIGHT
+  type_value: float
+  default: 2.0
+  value_range:
+    min: 2.0
+    max: 2.0
+- name: DAMAGE_OBS
+  type_value: float
+  default: 0.8
+  value_range:
+    min: 0.8
+    max: 0.8
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: NOISE_DAMAGE_OBS
+  type_value: float
+  default: 0.2
+  value_range:
+    min: 0.2
+    max: 0.2
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: oneStep
+  type_value: bool
+  default: false
+- name: twoStep
+  type_value: bool
+  default: false
+- name: HAS_LIFE
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: HAS_WATER
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: damaged
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: waterDetected
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: lifeDetected
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: pictureTaken
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: agentAt
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

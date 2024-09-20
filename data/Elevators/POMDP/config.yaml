@@ -1,5 +1,5 @@
-name: Elevators
-domain_alias: elevators_int_mdp
+name: Elevators_POMDP
+domain_alias: elevators_pomdp
 types:
 - name: elevator
   kind: object
@@ -17,24 +17,18 @@ non_fluents:
   non_default_ratio:
     min: 0.5
     max: 0.5
-- name: IN-ELEVATOR-PENALTY
+- name: ELEVATOR-PENALTY-RIGHT-DIR
   type_value: float
-  default: 1.0
+  default: 0.5
   value_range:
-    min: 1.0
-    max: 1.0
-- name: PEOPLE-WAITING-PENALTY
+    min: 0.5
+    max: 0.5
+- name: ELEVATOR-PENALTY-WRONG-DIR
   type_value: float
-  default: 2.95
+  default: 3.0
   value_range:
-    min: 2.95
-    max: 2.95
-- name: REWARD-DELIVERED
-  type_value: float
-  default: 30.0
-  value_range:
-    min: 30.0
-    max: 30.0
+    min: 3.0
+    max: 3.0
 - name: TOP-FLOOR
   type_value: bool
   default: false
@@ -53,28 +47,28 @@ non_fluents:
   non_default_ratio:
     min: 0.5
     max: 0.5
-- name: PRECEDENCE
+state_fluents:
+- name: person-waiting-up
   type_value: bool
   default: false
   non_default_ratio:
     min: 0.5
     max: 0.5
-state_fluents:
-- name: num-person-waiting
-  type_value: int
-  default: 0
-  value_range:
-    min: 0
-    max: 0
+- name: person-waiting-down
+  type_value: bool
+  default: false
   non_default_ratio:
     min: 0.5
     max: 0.5
-- name: num-person-in-elevator
-  type_value: int
-  default: 0
-  value_range:
-    min: 0
-    max: 0
+- name: person-in-elevator-going-up
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: person-in-elevator-going-down
+  type_value: bool
+  default: false
   non_default_ratio:
     min: 0.5
     max: 0.5

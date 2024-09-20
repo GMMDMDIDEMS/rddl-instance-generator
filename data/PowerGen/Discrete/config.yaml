@@ -1,0 +1,95 @@
+name: PowerGen_Discrete
+domain_alias: power_gen
+types:
+- name: plant
+  kind: object
+  alias: p
+non_fluents:
+- name: PROD-UNITS-MIN
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PROD-UNITS-MAX
+  type_value: int
+  default: 10
+  value_range:
+    min: 10
+    max: 10
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PROD-CHANGE-PENALTY
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: COST-PER-UNIT
+  type_value: float
+  default: 5.0
+  value_range:
+    min: 5.0
+    max: 5.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: INCOME-PER-UNIT
+  type_value: float
+  default: 8.0
+  value_range:
+    min: 8.0
+    max: 8.0
+- name: TEMP-VARIANCE
+  type_value: float
+  default: 5.0
+  value_range:
+    min: 5.0
+    max: 5.0
+- name: DEMAND-EXP-COEF
+  type_value: float
+  default: 0.01
+  value_range:
+    min: 0.01
+    max: 0.01
+- name: MIN-DEMAND-TEMP
+  type_value: float
+  default: 11.7
+  value_range:
+    min: 11.7
+    max: 11.7
+- name: MIN-CONSUMPTION
+  type_value: float
+  default: 2.0
+  value_range:
+    min: 2.0
+    max: 2.0
+- name: UNFULFILLED-DEMAND-PENALTY
+  type_value: float
+  default: 1000.0
+  value_range:
+    min: 1000.0
+    max: 1000.0
+state_fluents:
+- name: prevProd
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: temperature
+  type_value: float
+  default: 20.0
+  value_range:
+    min: 20.0
+    max: 20.0

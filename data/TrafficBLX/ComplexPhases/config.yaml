@@ -1,0 +1,338 @@
+name: TrafficBLX_ComplexPhases
+domain_alias: BLX_model
+types:
+- name: intersection
+  kind: object
+  alias: i
+- name: link
+  kind: object
+  alias: l
+- name: time
+  kind: object
+  alias: t
+- name: signal-phase
+  kind: object
+  alias: s
+- name: action-token
+  kind: object
+  alias: a
+non_fluents:
+- name: INTERSECTION-INDEX
+  type_value: int
+  default: -1
+  value_range:
+    min: -1
+    max: -1
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: ACTION-TOKEN-INDEX
+  type_value: int
+  default: -1
+  value_range:
+    min: -1
+    max: -1
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PHASE-INDEX
+  type_value: int
+  default: -1
+  value_range:
+    min: -1
+    max: -1
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: Ts
+  type_value: int
+  default: 1
+  value_range:
+    min: 1
+    max: 1
+- name: Lv
+  type_value: float
+  default: 6.0
+  value_range:
+    min: 6.0
+    max: 6.0
+- name: Nl
+  type_value: int
+  default: 4
+  value_range:
+    min: 4
+    max: 4
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: Vl
+  type_value: float
+  default: 13.8
+  value_range:
+    min: 13.8
+    max: 13.8
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: Dl
+  type_value: float
+  default: 150.0
+  value_range:
+    min: 150.0
+    max: 150.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: LINK-TO
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: LINK-FROM
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: TURN
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: MU
+  type_value: float
+  default: 0.53
+  value_range:
+    min: 0.53
+    max: 0.53
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: BETA
+  type_value: float
+  default: 0.33
+  value_range:
+    min: 0.33
+    max: 0.33
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PHASE-MIN
+  type_value: float
+  default: 20.0
+  value_range:
+    min: 20.0
+    max: 20.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PHASE-MAX
+  type_value: float
+  default: 60.0
+  value_range:
+    min: 60.0
+    max: 60.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PHASE-ALL-RED-DUR
+  type_value: float
+  default: 3.0
+  value_range:
+    min: 3.0
+    max: 3.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: GREEN
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: TRANSITION
+  type_value: int
+  default: -1
+  value_range:
+    min: -1
+    max: -1
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: SOURCE
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: SINK
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: SOURCE-ARRIVAL-RATE
+  type_value: float
+  default: 0.3
+  value_range:
+    min: 0.3
+    max: 0.3
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: SOURCE-MU
+  type_value: float
+  default: 0.4
+  value_range:
+    min: 0.4
+    max: 0.4
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: NEXT
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: TIME-HEAD
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: TIME-TAIL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: TIME-VAL
+  type_value: int
+  default: 1
+  value_range:
+    min: 1
+    max: 1
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: X
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: Y
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: SOURCE-X
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: SOURCE-Y
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: SINK-X
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: SINK-Y
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: flow-on-link
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: q
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: Nc
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: virtual-q
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: all-red
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: signal
+  type_value: int
+  default: 0
+  value_range:
+    min: 0
+    max: 0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: signal-t
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

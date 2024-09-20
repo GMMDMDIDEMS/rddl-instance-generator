@@ -1,0 +1,65 @@
+name: MountainCar_Discrete
+domain_alias: mountain_car
+types: []
+non_fluents:
+- name: GRAVITY-MAG
+  type_value: float
+  default: 0.0025
+  value_range:
+    min: 0.0025
+    max: 0.0025
+- name: FORCE-MAG
+  type_value: float
+  default: 0.001
+  value_range:
+    min: 0.001
+    max: 0.001
+- name: DEPTH
+  type_value: float
+  default: 0.45
+  value_range:
+    min: 0.45
+    max: 0.45
+- name: MIN-POS
+  type_value: float
+  default: -1.2
+  value_range:
+    min: -1.2
+    max: -1.2
+- name: MAX-POS
+  type_value: float
+  default: 0.6
+  value_range:
+    min: 0.6
+    max: 0.6
+- name: MAX-VEL
+  type_value: float
+  default: 0.07
+  value_range:
+    min: 0.07
+    max: 0.07
+- name: GOAL-MIN
+  type_value: float
+  default: 0.5
+  value_range:
+    min: 0.5
+    max: 0.5
+- name: VEL-MIN
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+state_fluents:
+- name: pos
+  type_value: float
+  default: -0.5
+  value_range:
+    min: -0.5
+    max: -0.5
+- name: vel
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0

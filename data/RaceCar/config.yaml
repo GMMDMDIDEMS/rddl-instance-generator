@@ -1,0 +1,128 @@
+name: RaceCar
+domain_alias: racecar
+types:
+- name: b
+  kind: object
+  alias: b
+non_fluents:
+- name: X1
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: Y1
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: X2
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: Y2
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: X0
+  type_value: float
+  default: 0.01
+  value_range:
+    min: 0.01
+    max: 0.01
+- name: Y0
+  type_value: float
+  default: 0.01
+  value_range:
+    min: 0.01
+    max: 0.01
+- name: GX
+  type_value: float
+  default: 0.95
+  value_range:
+    min: 0.95
+    max: 0.95
+- name: GY
+  type_value: float
+  default: 0.95
+  value_range:
+    min: 0.95
+    max: 0.95
+- name: RADIUS
+  type_value: float
+  default: 0.05
+  value_range:
+    min: 0.05
+    max: 0.05
+- name: COST
+  type_value: float
+  default: 0.01
+  value_range:
+    min: 0.01
+    max: 0.01
+- name: GOAL-REWARD
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+- name: MAX-F
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+- name: MASS
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+- name: DT
+  type_value: float
+  default: 0.1
+  value_range:
+    min: 0.1
+    max: 0.1
+state_fluents:
+- name: x
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+- name: y
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+- name: vx
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
+- name: vy
+  type_value: float
+  default: 0.0
+  value_range:
+    min: 0.0
+    max: 0.0
