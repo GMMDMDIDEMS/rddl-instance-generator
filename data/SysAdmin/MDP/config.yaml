@@ -1,4 +1,4 @@
-name: SysAdmin_MDP
+name: SysAdmin
 domain_alias: sysadmin_mdp
 types:
 - name: computer

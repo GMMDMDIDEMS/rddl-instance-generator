@@ -1,4 +1,4 @@
-name: GameOfLife_POMDP
+name: GameOfLife
 domain_alias: game_of_life_pomdp
 types:
 - name: x_pos

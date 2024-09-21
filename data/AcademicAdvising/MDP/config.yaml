@@ -1,4 +1,4 @@
-name: AcademicAdvising_MDP
+name: AcademicAdvising
 domain_alias: academic_advising_mdp
 types:
 - name: course

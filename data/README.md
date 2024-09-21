@@ -1,50 +1,82 @@
-# Domains Table
 
-| Domain              | Variant   | Supported   | Info       |
-|---------------------|-----------|-------------|------------|
-| AcademicAdvising    |           |             |            |
-| Bicycle             |           |             |            |
-| BinPacking          |           |             |            |
-| Blackjack           |     -      |      ❌        | non-fluent current-stage has enumerable type_value           |
-| Cartpole            |           |             |            |
-| ChromaticDice       |           |             |            |
-| ComplexSysAdmin     |           |             |            |
-| CooperativeRecon    |           |             |            |
-| CrossingTraffic     |           |             |            |
-| EarthObservation    |           |             |            |
-| Elevators           |           |             |            |
-| GameOfLife          |           |             |            |
-| HVAC                |           |             |            |
-| Knapsack            |           |             |            |
-| Logistics           |           |             |            |
-| Manufacturer        |           |             |            |
-| MarsRover           |           |             |            |
-| MountainCar         |           |             |            |
-| Navigation          |           |             |            |
-| Pendulum            |           |             |            |
-| Pizza               |           |             |            |
-| Pong                |    -       |      ✅     |            |
-| Portfolio           |           |             |            |
-| PowerGen            |           |             |            |
-| PropDBN             |           |             |            |
-| PushYourLuck        |           |             |            |
-| Quadcopter          |           |             |            |
-| RaceCar             |           |             |            |
-| RecSim              |           |             |            |
-| RedFinnedBlueEye    |           |             |            |
-| Reservoir           |           |             |            |
-| Sidewalk            |           |             |            |
-| SkillTeaching       |           |             |            |
-| Sokoban             |           |             |            |
-| SupplyChain         |           |             |            |
-| SysAdmin            |           |             |            |
-| TSP                 |           |             |            |
-| Tamarisk            |           |             |            |
-| Tetris              |    -       |     ✅       |            |
-| TowerOfHanoi        |    -       |      ✅        |            |
-| Traffic             |           |             |            |
-| TrafficBLX          |           |             |            |
-| TriangleTireworld   |           |             |            |
-| UAV                 |           |             |            |
-| Wildfire            |           |             |            |
-| Workforce           |           |             |            |
+| Domain    | Variant   | Supported | Info  |
+|-----------|-----------|:---------:|:-----:|
+| AcademicAdvising | MDP | ✔️ |   |
+| AcademicAdvising | IPPC2018 | ✔️ |   |
+| AcademicAdvising | POMDP | ✔️ |   |
+| Bicycle | - | ✔️ |   |
+| BinPacking | - | ✔️ |   |
+| Blackjack | - | ❌ |   |
+| CartPole | Discrete | ✔️ |   |
+| CartPole | Continuous | ✔️ |   |
+| ChromaticDice | - | ❌ |   |
+| ComplexSysAdmin | - | ❌ |   |
+| CooperativeRecon | MDP | ✔️ |   |
+| CooperativeRecon | IPPC2018 | ✔️ |   |
+| CooperativeRecon | POMDP | ✔️ |   |
+| CrossingTraffic | IPPC2014/MDP | ✔️ |   |
+| CrossingTraffic | IPPC2014/POMDP | ✔️ |   |
+| CrossingTraffic | IPPC2011/MDP | ✔️ |   |
+| CrossingTraffic | IPPC2011/POMDP | ✔️ |   |
+| EarthObservation | - | ❌ |   |
+| Elevators | standalone | ✔️ |   |
+| Elevators | IPPC2014/MDP | ✔️ |   |
+| Elevators | IPPC2014/POMDP | ✔️ |   |
+| Elevators | IPPC2011/MDP | ✔️ |   |
+| Elevators | IPPC2011/POMDP | ✔️ |   |
+| GameOfLife | MDP | ✔️ |   |
+| GameOfLife | POMDP | ✔️ |   |
+| HVAC | - | ✔️ |   |
+| Knapsack | - | ✔️ |   |
+| Logistics | - | ❌ |   |
+| Manufacturer | - | ❌ |   |
+| MarsRover | - | ✔️ |   |
+| MountainCar | IPPC2023 | ✔️ |   |
+| Navigation | MDP | ✔️ |   |
+| Navigation | standalone | ✔️ |   |
+| Navigation | POMDP | ✔️ |   |
+| Pendulum | - | ✔️ |   |
+| Pizza | - | ✔️ |   |
+| Pong | - | ✔️ |   |
+| Portfolio | - | ✔️ |   |
+| PowerGen | IPPC2023 | ✔️ |   |
+| PowerGen | Discrete | ✔️ |   |
+| PowerGen | Continuous | ✔️ |   |
+| PropDBN | - | ❌ |   |
+| PushYourLuck | - | ❌ |   |
+| Quadcopter | - | ❌ |   |
+| RaceCar | - | ✔️ |   |
+| RecSim | - | ✔️ |   |
+| RedFinnedBlueEye | - | ❌ |   |
+| Reservoir | IPPC2023 | ✔️ |   |
+| Reservoir | Discrete | ✔️ |   |
+| Reservoir | Continuous | ✔️ |   |
+| Sidewalk | - | ❌ |   |
+| SkillTeaching | IPPC2014/MDP | ✔️ |   |
+| SkillTeaching | IPPC2014/POMDP | ✔️ |   |
+| SkillTeaching | IPPC2011/MDP | ✔️ |   |
+| SkillTeaching | IPPC2011/POMDP | ✔️ |   |
+| Sokoban | - | ❌ |   |
+| SupplyChain | - | ✔️ |   |
+| SysAdmin | MDP | ✔️ |   |
+| SysAdmin | POMDP | ✔️ |   |
+| TSP | - | ✔️ |   |
+| Tamarisk | MDP | ❌ |   |
+| Tamarisk | POMDP | ❌ |   |
+| Tetris | - | ❌ |   |
+| TowerOfHanoi | - | ✔️ |   |
+| Traffic | IPPC2014/MDP | ✔️ |   |
+| Traffic | IPPC2014/POMDP | ✔️ |   |
+| Traffic | IPPC2011/MDP | ✔️ |   |
+| Traffic | IPPC2011/POMDP | ✔️ |   |
+| TrafficBLX | SimplePhases | ❌ |   |
+| TrafficBLX | ComplexPhases | ✔️ |   |
+| TriangleTireworld | MDP | ❌ |   |
+| TriangleTireworld | POMDP | ❌ |   |
+| UAV | IPPC2023 | ✔️ |   |
+| UAV | Mixed | ✔️ |   |
+| UAV | Discrete | ✔️ |   |
+| UAV | Continuous | ✔️ |   |
+| Wildfire | MDP | ✔️ |   |
+| Wildfire | POMDP | ✔️ |   |
+| Workforce | - | ✔️ |   |

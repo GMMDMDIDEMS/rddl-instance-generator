@@ -1,4 +1,4 @@
-name: SysAdmin_POMDP
+name: SysAdmin
 domain_alias: sysadmin_pomdp
 types:
 - name: computer

@@ -1,4 +1,4 @@
-name: CooperativeRecon_MDP
+name: CooperativeRecon
 domain_alias: recon_mdp
 types:
 - name: x_pos

@@ -1,4 +1,4 @@
-name: UAV_Mixed
+name: UAV
 domain_alias: kinematic_UAVs_mix
 types:
 - name: aircraft

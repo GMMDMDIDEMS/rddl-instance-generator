@@ -1,4 +1,4 @@
-name: Wildfire_MDP
+name: Wildfire
 domain_alias: wildfire_mdp
 types:
 - name: x_pos

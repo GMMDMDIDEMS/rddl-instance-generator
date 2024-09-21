@@ -1,4 +1,4 @@
-name: Navigation_POMDP
+name: Navigation
 domain_alias: navigation_pomdp
 types:
 - name: xpos

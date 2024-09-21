@@ -1,0 +1,68 @@
+name: Traffic
+domain_alias: traffic_pomdp
+types:
+- name: cell
+  kind: object
+  alias: c
+- name: intersection
+  kind: object
+  alias: i
+non_fluents:
+- name: PERIMETER-INPUT-CELL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PERIMETER-INPUT-RATE
+  type_value: float
+  default: 1.0
+  value_range:
+    min: 1.0
+    max: 1.0
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: PERIMETER-EXIT-CELL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: FLOWS-INTO-CELL
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: FLOWS-INTO-INTERSECTION-NS
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: FLOWS-INTO-INTERSECTION-EW
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+state_fluents:
+- name: light-signal1
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: light-signal2
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5
+- name: occupied
+  type_value: bool
+  default: false
+  non_default_ratio:
+    min: 0.5
+    max: 0.5

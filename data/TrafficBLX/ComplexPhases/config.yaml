@@ -1,4 +1,4 @@
-name: TrafficBLX_ComplexPhases
+name: TrafficBLX
 domain_alias: BLX_model
 types:
 - name: intersection

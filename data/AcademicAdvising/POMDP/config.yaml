@@ -1,4 +1,4 @@
-name: AcademicAdvising_POMDP
+name: AcademicAdvising
 domain_alias: academic_advising_pomdp
 types:
 - name: course

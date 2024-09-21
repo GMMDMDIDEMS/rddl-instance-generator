@@ -1,4 +1,4 @@
-name: CooperativeRecon_POMDP
+name: CooperativeRecon
 domain_alias: recon_pomdp
 types:
 - name: x_pos

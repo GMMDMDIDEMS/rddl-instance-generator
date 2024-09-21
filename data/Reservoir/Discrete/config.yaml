@@ -1,4 +1,4 @@
-name: Reservoir_Discrete
+name: Reservoir
 domain_alias: reservoir_control_dis
 types:
 - name: reservoir

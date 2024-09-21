@@ -1,4 +1,4 @@
-name: UAV_Continuous
+name: UAV
 domain_alias: kinematic_UAVs_con
 types:
 - name: aircraft

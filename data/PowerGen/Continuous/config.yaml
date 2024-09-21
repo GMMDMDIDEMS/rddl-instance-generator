@@ -1,4 +1,4 @@
-name: PowerGen_Continuous
+name: PowerGen
 domain_alias: power_gen
 types:
 - name: plant

@@ -1,4 +1,4 @@
-name: UAV_Discrete
+name: UAV
 domain_alias: kinematic_UAVs_dis
 types:
 - name: aircraft

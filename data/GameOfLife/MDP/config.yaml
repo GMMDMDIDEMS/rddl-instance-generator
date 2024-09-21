@@ -1,4 +1,4 @@
-name: GameOfLife_MDP
+name: GameOfLife
 domain_alias: game_of_life_mdp
 types:
 - name: x_pos

@@ -1,4 +1,4 @@
-name: Navigation_MDP
+name: Navigation
 domain_alias: navigation_mdp
 types:
 - name: xpos
