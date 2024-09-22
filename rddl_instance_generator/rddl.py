@@ -10,7 +10,7 @@ from pyRDDLGym.core.parser.reader import RDDLReader
 from pydantic import FilePath
 
 from rddl_instance_generator.domain import Domain
-from rddl_instance_generator.helper.templater import (
+from rddl_instance_generator.utils.templater import (
     GroundedInstanceTemplateData,
     get_instance_template,
 )

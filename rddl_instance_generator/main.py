@@ -62,7 +62,7 @@ def size_callback(ctx: typer.Context, value: int):
     # TODO duplicate code as we have to extract the number of objects
     # the domain has again for finding all combinations
     domain_name = ctx.params.get("domain_name")
-    config_path = DOMAIN_PATH / str(domain_name) / "config.yaml"
+    config_path = DOMAINS_PATH / str(domain_name) / "config.yaml"
     assert config_path.exists(), "config.yaml does not exist"
 
     config = load_config(config_path)

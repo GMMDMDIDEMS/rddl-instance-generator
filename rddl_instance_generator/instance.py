@@ -14,7 +14,7 @@ from pydantic import (
 )
 
 from rddl_instance_generator.domain import Domain
-from rddl_instance_generator.helper.templater import (
+from rddl_instance_generator.utils.templater import (
     UngroundedInstanceTemplateData,
     get_instance_template,
 )
