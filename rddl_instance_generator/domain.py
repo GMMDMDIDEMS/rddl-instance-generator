@@ -5,7 +5,6 @@ import yaml
 from pydantic import (
     BaseModel,
     DirectoryPath,
-    Field,
     FilePath,
     computed_field,
     field_validator,
@@ -13,7 +12,7 @@ from pydantic import (
 )
 from pyRDDLGym.core.compiler.model import RDDLLiftedModel
 
-from rddl_instance_generator.helper.helper import find_shortest_unique_prefix
+from rddl_instance_generator.utils.helper import find_shortest_unique_prefix
 
 DOMAINS_PATHS = Path("data")
 
