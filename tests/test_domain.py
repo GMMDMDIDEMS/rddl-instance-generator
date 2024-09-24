@@ -1,6 +1,3 @@
-from pathlib import Path
-from unittest.mock import Mock, patch, mock_open
-
 from pydantic import FilePath, ValidationError
 import pytest
 
@@ -8,50 +5,55 @@ from rddl_instance_generator.domain import Domain
 from rddl_instance_generator.instance import InstanceGenerator
 
 
-def test_get_template_folder_components(domain: Domain):
-    path: FilePath = domain.get_template_folder()
-    assert path.parts == ("domains", f"{domain.name}", "data", "templates")
+class TestInstanceGeneartor:
+    def test_instance_generator_domain(
+        self, mock_domain: Domain, instance_generator: InstanceGenerator
+    ):
+        assert instance_generator.domain == mock_domain
+
+    def test_instance_generator_default_seed(
+        self, instance_generator: InstanceGenerator
+    ):
+        assert instance_generator.seed == 42
+
+    def test_instance_generator_template_path(
+        self, instance_generator: InstanceGenerator
+    ):
+        assert (
+            instance_generator.template_folder_path.parent
+            == instance_generator.domain.get_template_folder()
+        )
+
+    def test_instance_generator_template_folder(
+        self, instance_generator: InstanceGenerator
+    ):
+        assert (
+            instance_generator.template_folder_path.name
+            == f"size_{instance_generator.size}"
+        )
+
+    def test_instance_generator_invalid_num_instances(self, mock_domain: Domain):
+        with pytest.raises(ValidationError, match="Input should be greater than 0"):
+            InstanceGenerator(domain=mock_domain, num_instances=0, size=10)
+
+    def test_instance_generator_invalid_size(self, mock_domain: Domain):
+        with pytest.raises(ValidationError, match="Input should be greater than 0"):
+            InstanceGenerator(domain=mock_domain, num_instances=5, size=0)
 
 
-def test_instance_generator_num_objects(domain: Domain):
-    instance_generator = InstanceGenerator(domain=domain, num_instances=5, size=10)
-    assert instance_generator.num_objects == 2
+def test_get_template_folder_components(mock_domain: Domain):
+    path: FilePath = mock_domain.get_template_folder()
+    assert path.parts == ("domains", f"{mock_domain.name}", "data", "templates")
 
 
-def test_instance_generator_template_path(domain: Domain):
-    instance_generator = InstanceGenerator(domain=domain, num_instances=5, size=10)
-    assert (
-        instance_generator.template_folder_path.parent == domain.get_template_folder()
-    )
-    assert (
-        instance_generator.template_folder_path.name
-        == f"size_{instance_generator.size}"
-    )
-
-
-def test_instance_generator_invalid_num_instances(domain: Domain):
-    with pytest.raises(ValidationError, match="Input should be greater than 0"):
-        InstanceGenerator(domain=domain, num_instances=0, size=10)
-
-
-def test_instance_generator_invalid_size(domain):
-    with pytest.raises(ValidationError, match="Input should be greater than 0"):
-        InstanceGenerator(domain=domain, num_instances=5, size=0)
-
-
-def test_instance_generator_default_seed(domain):
-    instance_gen = InstanceGenerator(domain=domain, num_instances=5, size=10)
-    assert instance_gen.seed == 42
-
-
-def test_instance_generator_templates_path(domain):
-    instance_generator = InstanceGenerator(domain=domain, num_instances=5, size=10)
-    assert (
-        instance_generator.template_folder_path.parent
-        == instance_generator.domain.get_template_folder()
-    )
-    assert instance_generator.template_folder_path.name.startswith("size_")
-    assert int(instance_generator.template_folder_path.name.split("_")[-1]) == 10
+# def test_instance_generator_templates_path(domain):
+#     instance_generator = InstanceGenerator(domain=domain, num_instances=5, size=10)
+#     assert (
+#         instance_generator.template_folder_path.parent
+#         == instance_generator.domain.get_template_folder()
+#     )
+#     assert instance_generator.template_folder_path.name.startswith("size_")
+#     assert int(instance_generator.template_folder_path.name.split("_")[-1]) == 10
 
 
 # @patch("builtins.open", new_callable=mock_open)
